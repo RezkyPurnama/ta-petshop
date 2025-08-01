@@ -114,9 +114,16 @@
 
 
             <li class="menu-item">
-              <a href="product" class="menu-link">
+              <a href="/product" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
                 <div data-i18n="Basic">Product</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="/kategori" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Basic">Kategori</div>
               </a>
             </li>
 
@@ -129,7 +136,7 @@
 
 
 
-           
+
           </ul>
         </aside>
 

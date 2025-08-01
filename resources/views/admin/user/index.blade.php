@@ -1,13 +1,13 @@
 @extends('admin.layouts.main')
 @section('content')
 
-
+<div class="container">
 <div class="card mt-4">
   <h5 class="card-header">Daftar Pengguna</h5>
   <div class="card-body">
     {{-- Hapus class "table-responsive text-nowrap" agar tidak ada scroll --}}
     <table class="table table-bordered">
-      <thead>
+      <thead class="text-center">
         <tr>
           <th>Username</th>
           <th>Email</th>
@@ -17,7 +17,7 @@
           <th>Aksi</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-center">
         @foreach ($users as $dataUser)
         <tr>
           <td>{{ $dataUser->name }}</td>
@@ -65,5 +65,5 @@
     </table>
   </div>
 </div>
-
+</div>
 @endsection

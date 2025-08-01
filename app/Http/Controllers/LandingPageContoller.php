@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LandingPageContoller
 {
    public function admin()
     {
-        return view('admin.layouts.main');
+        return view('admin.dashboard.index');
     }
      public function user()
     {
-        return view('user.layouts.main');
+        $user_id = Auth::id(); //
+        return view('user.layouts.dashboard');
     }
 }

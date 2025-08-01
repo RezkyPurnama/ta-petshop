@@ -8,17 +8,16 @@
       <div class="card">
         <div class="card-body">
           <!-- Logo -->
-          <div class="app-brand justify-content-center">
+         <div class="app-brand justify-content-center">
             <a class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">
-                <!-- Logo SVG -->
-              </span>
-              <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
-            </a>
-          </div>
+                <span class="app-brand-logo demo">
+                <img src="{{ asset('admin/assets/img/avatars/logo 2.png') }}" alt="Logo" style="height: 40px;">
+                </span>
 
-          <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-          <p class="mb-4">Please sign-in to your account and start the adventure</p>
+            </a>
+         </div>
+          <h4 class="mb-4 text-center">Welcome to Q PetCare Padang</h4>
+
 
           {{-- Alert error --}}
           @if(session('error'))
@@ -32,16 +31,16 @@
           <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="email" class="form-label">Email or Username</label>
+              <label for="email" class="form-label">Email</label>
               <input
                 type="text"
                 class="form-control @error('email') is-invalid @enderror"
                 id="email"
                 name="email"
-                placeholder="Enter your email or username"
+                placeholder="Enter your email "
                 value="{{ old('email') }}"
                 autofocus
-                autocomplete="username"
+                autocomplete="email"
               />
               @error('email')
               <div class="invalid-feedback">
