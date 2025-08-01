@@ -22,7 +22,7 @@ class isAdmin
         if (auth()->user()->isAdmin !== 1) {
             abort(403, 'Unauthorized action.');
         }
-        
+
         return $next($request);
     }
 }
