@@ -77,22 +77,27 @@
                                 <i class="fas fa-shopping-cart me-1"></i>
                             </a>
                         @endif
-
-                        {{-- Dropdown User --}}
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fas fa-user me-1"></i> {{ Auth::user()->name }}
+                    <div class="nav-item dropdown d-flex align-items-center">
+                        <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2 user-menu" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle fa-lg"></i>
+                            <span class="fw-semibold">{{ Auth::user()->name }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
+                            <a class="dropdown-item" href="{{ url('/profile') }}">
+                                <i class="fas fa-id-card me-2"></i> Profil
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
-                                <a class="dropdown-item" href="{{ url('/logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                   Logout
-                                </a>
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
+                            <a class="dropdown-item" href="{{ url('/riwayat-pesanan') }}">
+                                <i class="fas fa-receipt me-2"></i> Riwayat Pesanan
+                            </a>
+                            <a class="dropdown-item" href="{{ url('/logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                 <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </div>
+                    </div>
                     @else
                         {{-- Jika belum login --}}
                         <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
@@ -122,13 +127,13 @@
                 </div>
                 <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
                     <h5 class="mb-4">Get In Touch</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>Jalan Raya Tanjung Sabang No.9, Tanjung Saba Pitameh Nan XX, Kota Padang, Sumatera Barat, Indonesia, Padang, Indonesia 25155</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                     <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-outline-primary me-1" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-outline-primary me-1" href="https://api.whatsapp.com/send?phone=628116666604&text=Nama%20:%0ANo%20HP%20:%0AAlamat%20:%0AHalo,%20mimin%20saya%20mau%20beli&fbclid=PAZXh0bgNhZW0CMTEAAae8P9Pla9ZD_SpifyEDq2fmI3247l1oYCKpr4vhNBVjLdU4ta1fph78xTA7EQ_aem_wWt83jtuQq5TR_ycCGUFcg"><i class="fab fa-whatsapp"></i></a>
                         <a class="btn btn-square btn-outline-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-outline-primary me-1" href=""><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-square btn-outline-primary me-1" href="https://www.instagram.com/qpetcare_padang"><i class="fab fa-instagram"></i></a>
                         <a class="btn btn-square btn-outline-primary me-1" href=""><i
                                 class="fab fa-linkedin-in"></i></a>
                     </div>

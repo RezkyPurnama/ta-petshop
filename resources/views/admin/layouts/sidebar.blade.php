@@ -128,6 +128,13 @@
             </li>
 
             <li class="menu-item">
+              <a href="/stock-produk" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Basic">Stock Produk</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
               <a href="setting-user" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Basic">User</div>

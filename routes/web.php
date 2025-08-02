@@ -8,6 +8,7 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\admin\DashboardAdminController;
 use App\Http\Controllers\admin\KategoriController;
 use App\Http\Controllers\admin\ProdukController;
+use App\Http\Controllers\admin\StockProdukController;
 
 Route::get('/', [LandingPageContoller::class, 'user']);
 
@@ -16,6 +17,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/setting-user', UserController::class);
     Route::resource('/product', ProdukController::class);
     Route::resource('/kategori', KategoriController::class);
+    Route::resource('/stock-produk', StockProdukController::class);
 });
 
 Route::middleware(['auth'])->group(function () {
