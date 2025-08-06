@@ -4,7 +4,7 @@
   <div class="card mt-4">
     <h4 class="card-header">Tambah Produk</h4>
     <div class="card-body">
-      <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -43,7 +43,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('product.index') }}" class="btn btn-secondary">Batal</a>
+        <a href="{{ route('produk.index') }}" class="btn btn-secondary">Batal</a>
       </form>
     </div>
   </div>

@@ -68,36 +68,39 @@
                         </div>
                     </div>
 
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/Grommimg') }}" class="nav-item nav-link">Gromming</a>
+                    <a href="{{ url('/Pet-Hotel') }}" class="nav-item nav-link">Pet Hotel</a>
 
                     @auth
                         {{-- Jika user biasa (role = 0) --}}
-                        @if (Auth::check() && Auth::user()->isAdmin == 0)
+                        @if (Auth::user()->isAdmin == 0)
                             <a href="{{ url('/cart') }}" class="nav-item nav-link position-relative">
                                 <i class="fas fa-shopping-cart me-1"></i>
                             </a>
                         @endif
-                    <div class="nav-item dropdown d-flex align-items-center">
-                        <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2 user-menu" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle fa-lg"></i>
-                            <span class="fw-semibold">{{ Auth::user()->name }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
-                            <a class="dropdown-item" href="{{ url('/profile') }}">
-                                <i class="fas fa-id-card me-2"></i> Profil
+
+                        {{-- Dropdown Profil --}}
+                        <div class="nav-item dropdown d-flex align-items-center">
+                            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2 user-menu" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle fa-lg"></i>
+                                <span class="fw-semibold">{{ Auth::user()->name }}</span>
                             </a>
-                            <a class="dropdown-item" href="{{ url('/riwayat-pesanan') }}">
-                                <i class="fas fa-receipt me-2"></i> Riwayat Pesanan
-                            </a>
-                            <a class="dropdown-item" href="{{ url('/logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                 <i class="fas fa-sign-out-alt me-2"></i> Logout
-                            </a>
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                            <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
+                                <a class="dropdown-item" href="{{ url('/profile') }}">
+                                    <i class="fas fa-id-card me-2"></i> Profil
+                                </a>
+                                <a class="dropdown-item" href="{{ url('/riwayat-pesanan') }}">
+                                    <i class="fas fa-receipt me-2"></i> Riwayat Pesanan
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     @else
                         {{-- Jika belum login --}}
                         <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
@@ -159,19 +162,11 @@
         <div class="container wow fadeIn" data-wow-delay="0.1s">
             <div class="copyright">
                 <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-menu">
-                            <a href="">Home</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FAQs</a>
-                        </div>
+                    <div class="col-12 text-center">
+                        <p class="mb-0 text-muted">
+                            &copy; 2025, All rights reserved. Powered by
+                            <a href="#" class="text-primary fw-semibold text-decoration-none">QPetcarePadang</a>
+                        </p>
                     </div>
                 </div>
             </div>

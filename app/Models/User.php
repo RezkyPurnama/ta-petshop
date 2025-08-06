@@ -23,6 +23,7 @@
             'password',
             'no_telepon',
             'alamat',
+            'foto_profile',
             'email_verified_at',
             'remember_token'
         ];

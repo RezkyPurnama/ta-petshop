@@ -11,11 +11,11 @@
                     <p class="text-white mb-4 animated slideInRight">Lorem ipsum dolor sit amet, consectetur adipiscing
                         elit. Etiam feugiat rutrum lectus, sed auctor ex malesuada id. Orci varius natoque penatibus et
                         magnis dis parturient montes.</p>
-                    <a href="" class="btn btn-dark py-2 px-4 me-3 animated slideInRight">Shop Now</a>
-                    <a href="" class="btn btn-outline-dark py-2 px-4 animated slideInRight">Contact Us</a>
+                    <a href="{{ url('product') }}" class="btn btn-dark py-2 px-4 me-3 animated slideInRight">Shop Now</a>
+                    <a href="{{ url('https://api.whatsapp.com/send?phone=628116666604&text=Nama%20:%0ANo%20HP%20:%0AAlamat%20:%0AHalo,%20mimin%20saya%20mau%20beli&fbclid=PAZXh0bgNhZW0CMTEAAae8P9Pla9ZD_SpifyEDq2fmI3247l1oYCKpr4vhNBVjLdU4ta1fph78xTA7EQ_aem_wWt83jtuQq5TR_ycCGUFcg') }}" class="btn btn-outline-dark py-2 px-4 animated slideInRight">Contact Us</a>
                 </div>
                 <div class="col-lg-6">
-                    <img class="img-fluid animated pulse infinite" src="img/shampoo.png" alt="">
+                    <img class="img-fluid animated pulse infinite" src="{{ asset('user/assets/img/banner1.png') }}" alt="banner q petcare">
                 </div>
             </div>
         </div>
@@ -249,82 +249,51 @@
     <!-- How To Use End -->
 
 
-    <!-- Product Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h1 class="text-primary mb-3"><span class="fw-light text-dark">Our Natural</span> Hair Products</h1>
-                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet, erat non malesuada consequat, nibh erat tempus risus.</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/item2.jpg" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Hair Shining Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
+  <!-- Product Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="text-primary mb-3"><span class="fw-light text-dark">Produk Terbaik</span> Q Petcare</h1>
+            <p class="mb-5">Kami menyediakan produk berkualitas untuk hewan kesayangan Anda.</p>
+        </div>
+        <div class="row g-4">
+            @forelse ($produks as $produk)
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.{{ $loop->index + 1 }}s">
+                <div class="product-item text-center border h-100 p-4">
+                    <img class="img-fluid mb-4" src="{{ asset('storage/' . $produk->gambar_produk) }}" alt="{{ $produk->nama_produk }}" style="height: 120px; width: 100%; object-fit: contain;">
+
+                    <div class="mb-2">
+                        {{-- Bisa tambah rating kalau ada --}}
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small>(100)</small>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Anti-dandruff Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Anti Hair Fall Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Hair Growing Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
+                    <a href="#"class="h6 d-inline-block mb-2 text-dark"style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px;"> {{ $produk->nama_produk }} </a>
+
+                    <h5 class="text-primary mb-3">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h5>
+                    <form action="{{ route('keranjang.store') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+                    <input type="hidden" name="jumlah" value="1"> <!-- default 1, bisa diubah kalau mau pakai input jumlah -->
+                    <button type="submit" class="btn btn-outline-primary px-3">
+                        Add To Cart
+                    </button>
+                </form>
+
                 </div>
             </div>
+            @empty
+            <div class="text-center">
+                <p>Produk belum tersedia.</p>
+            </div>
+            @endforelse
         </div>
     </div>
-    <!-- Product End -->
+</div>
+<!-- Product End -->
 
 
     <!-- Testimonial Start -->

@@ -4,7 +4,7 @@
 <div class="card mt-4">
   <h3 class="card-header d-flex justify-content-between align-items-center">
     <span>Daftar Produk</span>
-    <a href="{{ route('product.create') }}" class="btn btn-primary mb-3"
+    <a href="{{ route('produk.create') }}" class="btn btn-primary mb-3"
        style="font-size: 1rem; padding: 4px 8px;">+ Tambah Produk</a>
   </h3>
 
@@ -40,10 +40,10 @@
                 <i class="bx bx-dots-vertical-rounded"></i>
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('product.edit', $produk->id) }}">
+                <a class="dropdown-item" href="{{ route('produk.edit', $produk->id) }}">
                   <i class="bx bx-edit-alt me-1"></i> Edit
                 </a>
-                <form action="{{ route('product.destroy', $produk->id) }}" method="POST">
+                <form action="{{ route('produk.destroy', $produk->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button class="dropdown-item" onclick="return confirm('Hapus produk ini?')">

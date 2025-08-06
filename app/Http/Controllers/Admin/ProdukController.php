@@ -12,8 +12,8 @@ class ProdukController
     public function index()
     {
         $produks = Produk::with('kategori')
-            ->latest() // order by created_at desc
-            ->take(10) // ambil hanya 10 data
+            ->latest()
+            ->take(10)
             ->get();
 
         return view('admin.produk.index', compact('produks'));
@@ -31,7 +31,7 @@ class ProdukController
             'kode_produk' => 'required|unique:produks,kode_produk',
             'nama_produk' => 'required',
             'harga' => 'required|numeric',
-            'gambar_produk' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga', 'deskripsi']);
@@ -42,7 +42,7 @@ class ProdukController
 
         Produk::create($data);
 
-        return redirect()->route('product.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -60,33 +60,40 @@ class ProdukController
             'kode_produk' => 'required|unique:produks,kode_produk,' . $produk->id,
             'nama_produk' => 'required',
             'harga' => 'required|numeric',
-            'gambar_produk' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga', 'deskripsi']);
 
+        // Hapus gambar lama jika ada dan upload baru
         if ($request->hasFile('gambar_produk')) {
-            if ($produk->gambar_produk && Storage::disk('public')->exists($produk->gambar_produk)) {
-                Storage::disk('public')->delete($produk->gambar_produk);
-            }
+            $this->deleteImage($produk->gambar_produk);
             $data['gambar_produk'] = $request->file('gambar_produk')->store('gambar_produk', 'public');
         }
 
         $produk->update($data);
 
-        return redirect()->route('product.index')->with('success', 'Produk berhasil diupdate.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $produk = Produk::findOrFail($id);
 
-        if ($produk->gambar_produk && Storage::disk('public')->exists($produk->gambar_produk)) {
-            Storage::disk('public')->delete($produk->gambar_produk);
-        }
+        $this->deleteImage($produk->gambar_produk); // Hapus gambar dari storage
 
         $produk->delete();
 
-        return redirect()->route('product.index')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
+    }
+
+    /**
+     * Fungsi bantu untuk menghapus gambar dari storage/public.
+     */
+    private function deleteImage($path)
+    {
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

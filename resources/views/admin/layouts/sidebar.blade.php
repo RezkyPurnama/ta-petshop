@@ -114,7 +114,7 @@
 
 
             <li class="menu-item">
-              <a href="/product" class="menu-link">
+              <a href="/produk" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
                 <div data-i18n="Basic">Product</div>
               </a>

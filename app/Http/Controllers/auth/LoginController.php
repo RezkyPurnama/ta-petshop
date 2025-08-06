@@ -44,12 +44,10 @@ class LoginController
      */
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::logout(); // logout user
+        $request->session()->invalidate(); // hapus semua session
+        $request->session()->regenerateToken(); // amankan CSRF
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+        return redirect('/'); // arahkan ke landing p
     }
 }
