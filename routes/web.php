@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\LandingPageContoller;
 use App\Http\Controllers\user\AboutController;
+use App\Http\Controllers\user\DetailController;
 use App\Http\Controllers\admin\ProdukController;
 use App\Http\Controllers\user\ProfileController;
 use App\Http\Controllers\auth\RegisterController;
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [KeranjangController::class, 'index'])->name('keranjang.index');
     Route::post('/cart', [KeranjangController::class, 'store'])->name('keranjang.store');
     Route::delete('/cart/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+    Route::patch('/cart/{id}/update-jumlah', [KeranjangController::class, 'updateJumlah'])->name('keranjang.updateJumlah');
 });
 
 
@@ -47,3 +49,5 @@ Route::get('/user', [LandingPageContoller::class, 'user']);
 
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/product', [ProductKatalogController::class, 'index']);
+
+Route::get('/detail-produk/{id}', [DetailController::class, 'detail'])->name('detail-produk');

@@ -19,6 +19,7 @@ class KeranjangController
         $total = $keranjangs->sum('totalharga');
 
         return view('user.keranjang.keranjang', compact('keranjangs', 'total'));
+
     }
 
     // Menambahkan produk ke keranjang
@@ -52,6 +53,31 @@ class KeranjangController
 
         return redirect()->route('keranjang.index')->with('success', 'Produk berhasil ditambahkan ke keranjang');
     }
+
+    // Tambah jumlah keranjang
+    public function updateJumlah(Request $request, $id)
+    {
+        $keranjang = Keranjang::with('produk.stockproduk')->findOrFail($id);
+        $jumlahBaru = (int) $request->input('jumlah');
+        $stokTersedia = $keranjang->produk->stockproduk->stock ?? 0;
+
+        if ($jumlahBaru < 1) {
+            return redirect()->route('keranjang.index')->with('error', 'Jumlah tidak boleh kurang dari 1.');
+        }
+
+        if ($jumlahBaru > $stokTersedia) {
+            return redirect()->route('keranjang.index')->with('error', 'Jumlah melebihi stok yang tersedia.');
+        }
+
+        $keranjang->jumlah = $jumlahBaru;
+        $keranjang->totalharga = $keranjang->produk->harga * $jumlahBaru;
+        $keranjang->save();
+
+        return redirect()->route('keranjang.index')->with('success', 'Jumlah berhasil diperbarui.');
+    }
+
+
+
 
     // Hapus item dari keranjang
     public function destroy($id)

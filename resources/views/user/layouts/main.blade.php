@@ -80,27 +80,34 @@
                         @endif
 
                         {{-- Dropdown Profil --}}
-                        <div class="nav-item dropdown d-flex align-items-center">
-                            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center gap-2 user-menu" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle fa-lg"></i>
-                                <span class="fw-semibold">{{ Auth::user()->name }}</span>
+
+                    <div class="nav-item dropdown d-flex align-items-center">
+                        <a >
+                            @if (Auth::user()->foto_profile)
+                                <img src="{{ asset('storage/profil/' . Auth::user()->foto_profile) }}" alt="Profile Image"
+                                    class="rounded-circle" width="30" height="30">
+                            @else
+                                <i class="fas fa-user-circle fa-lg "></i>
+                            @endif
+                            <span class="fw-bold text-dark">{{ Auth::user()->name }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
+                            <a class="dropdown-item" href="{{ url('/profile') }}">
+                                <i class="fas fa-id-card me-2"></i> Profil
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
-                                <a class="dropdown-item" href="{{ url('/profile') }}">
-                                    <i class="fas fa-id-card me-2"></i> Profil
-                                </a>
-                                <a class="dropdown-item" href="{{ url('/riwayat-pesanan') }}">
-                                    <i class="fas fa-receipt me-2"></i> Riwayat Pesanan
-                                </a>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt me-2"></i> Logout
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
+                            <a class="dropdown-item" href="{{ url('/riwayat-pesanan') }}">
+                                <i class="fas fa-receipt me-2"></i> Riwayat Pesanan
+                            </a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </div>
+                    </div>
+
                     @else
                         {{-- Jika belum login --}}
                         <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>

@@ -17,7 +17,7 @@
     <!-- Hero End -->
 
 
-<!-- Product Start -->
+  <!-- Product Start -->
 <div class="container-fluid py-5">
     <div class="container">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -25,13 +25,13 @@
             <p class="mb-5">Kami menyediakan produk berkualitas untuk hewan kesayangan Anda.</p>
         </div>
         <div class="row g-4">
-            @forelse($produks as $produk)
+            @forelse ($produks as $produk)
             <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.{{ $loop->index + 1 }}s">
                 <div class="product-item text-center border h-100 p-4">
-                    <img class="img-fluid mb-4" src="{{ asset('storage/' . $produk->gambar_produk) }}"
-                        alt="{{ $produk->nama_produk }}" style="height: 150px; object-fit: contain;">
+                    <img class="img-fluid mb-4" src="{{ asset('storage/' . $produk->gambar_produk) }}" alt="{{ $produk->nama_produk }}" style="height: 120px; width: 100%; object-fit: contain;">
+
                     <div class="mb-2">
-                        {{-- Placeholder bintang rating --}}
+                        {{-- Bisa tambah rating kalau ada --}}
                         <small class="fa fa-star text-primary"></small>
                         <small class="fa fa-star text-primary"></small>
                         <small class="fa fa-star text-primary"></small>
@@ -39,10 +39,21 @@
                         <small class="fa fa-star text-primary"></small>
                         <small>(100)</small>
                     </div>
-                    <a href="#" class="h6 d-inline-block mb-2 text-dark"
-                        style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px;">{{ $produk->nama_produk }}</a>
+                    <a href=""class="h6 d-inline-block mb-2 text-dark"style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px;"> {{ $produk->nama_produk }} </a>
+
                     <h5 class="text-primary mb-3">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h5>
-                    <a href="#" class="btn btn-outline-primary px-3">Add To Cart</a>
+                    <form action="{{ route('keranjang.store') }}" method="POST" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+                    <input type="hidden" name="jumlah" value="1"> <!-- default 1, bisa diubah kalau mau pakai input jumlah -->
+                    <button type="submit" class="btn btn-outline-primary px-3">
+                        Add To Cart
+                    </button>
+                 </form>
+                <div class="mt-2 btn btn-outline-primary px-3">
+                    <a href="{{ route('detail-produk', $produk->id) }}" class="text-dark text-decoration-none">Lihat Detail</a>
+                </div>
+
                 </div>
             </div>
             @empty
