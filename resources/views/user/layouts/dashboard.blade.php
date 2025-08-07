@@ -271,7 +271,8 @@
                         <small class="fa fa-star text-primary"></small>
                         <small>(100)</small>
                     </div>
-                    <a href=""class="h6 d-inline-block mb-2 text-dark"style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px;"> {{ $produk->nama_produk }} </a>
+                    <a href=""class="h6 d-inline-block mb-2 text-dark" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px; max-height: 48px; line-height: 24px;"> {{ $produk->nama_produk }}</a>
+
 
                     <h5 class="text-primary mb-3">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h5>
                     <form action="{{ route('keranjang.store') }}" method="POST" class="d-inline">

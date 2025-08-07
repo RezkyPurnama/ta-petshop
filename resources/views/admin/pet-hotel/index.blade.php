@@ -4,47 +4,48 @@
 <div class="container">
   <div class="card mt-4">
     <h3 class="card-header d-flex justify-content-between align-items-center">
-      <span>Daftar Stok Produk</span>
-      <a href="{{ route('stock-produk.create') }}" class="btn btn-primary mb-3">+ Tambah Stok</a>
+      <span>Daftar Data Pet Hotel</span>
     </h3>
 
     <div class="card-body">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped">
         <thead class="text-center">
           <tr>
-            <th>Nama Produk</th>
-            <th>Stok</th>
+            <th>Nama Pemilik</th>
+            <th>Nomor Telepon</th>
+            <th>Nama Hewan</th>
+            <th>Jenis Hewan</th>
+            <th>Jumlah</th>
+            <th>Ras</th>
+            <th>Vaksin</th>
+            <th>Sertifikat</th>
+            <th>Check In</th>
+            <th>Check Out</th>
             <th width="10%">Aksi</th>
           </tr>
         </thead>
         <tbody>
-          @forelse ($stock_produk as $stock)
+          @forelse ($pethotels as $item)
           <tr>
-            <td>{{ $stock->produk->nama_produk ?? '-' }}</td>
-            <td>{{ $stock->stock }}</td>
+            <td>{{ $item->nama_pemilik }}</td>
+            <td>{{ $item->nomor_telepon }}</td>
+            <td>{{ $item->nama_hewan }}</td>
+            <td>{{ $item->jenis_hewan }}</td>
+            <td class="text-center">{{ $item->jumlah_hewan }}</td>
+            <td>{{ $item->ras_hewan }}</td>
+            <td>{{ $item->status_vaksin }}</td>
+            <td>{{ $item->sertifikat_hewan }}</td>
+            <td>{{ $item->check_in }}</td>
+            <td>{{ $item->check_out }}</td>
             <td class="text-center">
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('stock-produk.edit', $stock->id) }}">
-                    <i class="bx bx-edit-alt me-1"></i> Edit
-                  </a>
-                  <form action="{{ route('stock-produk.destroy', $stock->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="dropdown-item" onclick="return confirm('Hapus stok produk ini?')">
-                      <i class="bx bx-trash me-1"></i> Hapus
-                    </button>
-                  </form>
-                </div>
-              </div>
+              <a href="{{ route('data-pethotel.edit', $item->id) }}" class="btn btn-sm btn-warning">
+                <i class="bx bx-edit"></i> Edit
+              </a>
             </td>
           </tr>
           @empty
           <tr>
-            <td colspan="4" class="text-center">Tidak ada data stok produk.</td>
+            <td colspan="12" class="text-center">Tidak ada data Pet Hotel.</td>
           </tr>
           @endforelse
         </tbody>
@@ -52,7 +53,7 @@
 
       {{-- Pagination --}}
       <div class="d-flex justify-content-end">
-        {{ $stock_produk->links() }}
+        {{ $pethotels->links() }}
       </div>
     </div>
   </div>

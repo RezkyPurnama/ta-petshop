@@ -133,6 +133,12 @@
                 <div data-i18n="Basic">Stock Produk</div>
               </a>
             </li>
+             <li class="menu-item">
+              <a href="/data-pethotel" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Basic"> Data Pet Hotel</div>
+              </a>
+            </li>
 
             <li class="menu-item">
               <a href="setting-user" class="menu-link">

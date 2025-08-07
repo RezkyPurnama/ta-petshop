@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Q Petcare Padang</title>
+    <title>Q Petcare Padang - Petshop Terlengkap</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -60,11 +60,9 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu bg-light mt-2">
-                            <a href="{{ url('/feature') }}" class="dropdown-item">Features</a>
-                            <a href="{{ url('/how-to-use') }}" class="dropdown-item">How To Use</a>
-                            <a href="{{ url('/testimonial') }}" class="dropdown-item">Testimonial</a>
-                            <a href="{{ url('/blog') }}" class="dropdown-item">Blog Articles</a>
-                            <a href="{{ url('/404') }}" class="dropdown-item">404 Page</a>
+                            <a href="{{ url('/dog') }}" class="dropdown-item">Dog</a>
+                            <a href="{{ url('/cat') }}" class="dropdown-item">Cat</a>
+                            <a href="{{ url('/aksesoris') }}" class="dropdown-item">Aksesoris</a>
                         </div>
                     </div>
 
