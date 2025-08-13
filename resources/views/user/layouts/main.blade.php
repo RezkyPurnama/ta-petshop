@@ -17,6 +17,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@200;600;700&display=swap"
         rel="stylesheet">
+    {{--  animasi AOS  --}}
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -40,10 +42,10 @@
 <!-- Navbar Start -->
 <div class="container-fluid sticky-top">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light p-0">
+        <nav class="navbar navbar-expand-lg navbar-light p-0 navbar-custom">
             <a class="navbar-brand d-flex align-items-center gap-2 me-auto">
                 <h2 class="text-white mb-0">Petcare</h2>
-                <img src="{{ asset('img/logo.png') }}" alt="Logo Petcare" style="height:40px;">
+                {{--  <img src="{{ asset('user/assets/img/blog-3.jpg') }}" alt="Logo Petcare" style="height:40px;">  --}}
             </a>
 
             <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
@@ -66,8 +68,8 @@
                         </div>
                     </div>
 
-                    <a href="{{ url('/Grommimg') }}" class="nav-item nav-link">Gromming</a>
-                    <a href="{{ url('/Pet-Hotel') }}" class="nav-item nav-link">Pet Hotel</a>
+                    <a href="{{ url('/grooming') }}" class="nav-item nav-link">Grooming</a>
+                    <a href="{{ url('/pet-hotel') }}" class="nav-item nav-link">Pet Hotel</a>
 
                     @auth
                         {{-- Jika user biasa (role = 0) --}}
@@ -91,14 +93,14 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light mt-2">
                             <a class="dropdown-item" href="{{ url('/profile') }}">
-                                <i class="fas fa-id-card me-2"></i> Profil
+                                <i></i> Profil
                             </a>
                             <a class="dropdown-item" href="{{ url('/riwayat-pesanan') }}">
-                                <i class="fas fa-receipt me-2"></i> Riwayat Pesanan
+                                <i></i> Riwayat Pesanan
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                <i></i> Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -193,6 +195,12 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('user/assets/js/main.js') }}"></script>
+    {{--  Animasi AOS  --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+ <script>
+     AOS.init();
+</script>
 </body>
 
 </html>

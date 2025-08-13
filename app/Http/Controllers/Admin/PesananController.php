@@ -10,20 +10,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class PesananController
 {
-    // Menampilkan halaman checkout
     public function index()
     {
         $userId = Auth::id();
+        // dd($userId);
         $keranjangs = Keranjang::with('produk')->where('user_id', $userId)->get();
         $total = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
+        // $total = Pesanan::where('user_id', $userId)
+        // ->where('status', 'belum_bayar')
+        // ->latest()->firstOrFail();
+        // dd($total);
 
-        return view('user.cekout.index', compact('keranjangs', 'total'));
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = false;
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'TRX-' . strtoupper(uniqid()),
+                'gross_amount' => $total,
+            ],
+            'customer_details' => [
+                'first_name' => Auth::user()->name ?? 'Guest',
+                'email' => Auth::user()->email ?? 'guest@example.com',
+                'phone' => Auth::user()->no_telepon ?? '08123456789',
+            ]
+        ];
+
+        $snapToken = Snap::getSnapToken($params);
+
+        return view('user.cekout.index', compact('keranjangs', 'total', 'snapToken'));
     }
 
-    // Menyimpan pesanan
     public function store(Request $request)
     {
         $request->validate([
@@ -33,7 +57,6 @@ class PesananController
         ]);
 
         DB::beginTransaction();
-
         try {
             $userId = Auth::id();
             $keranjangs = Keranjang::with('produk.stockproduk')->where('user_id', $userId)->get();
@@ -42,22 +65,19 @@ class PesananController
                 return redirect()->route('pesanan.index')->with('error', 'Keranjang anda kosong.');
             }
 
-            // Validasi stok
             foreach ($keranjangs as $item) {
-                if (!$item->produk_id || !$item->produk || $item->jumlah > $item->produk->stockproduk->stock) {
-                    return redirect()->route('pesanan.index')->with('error', 'Stok produk tidak mencukupi untuk "' . $item->produk->nama . '".');
+                if ($item->jumlah > $item->produk->stockproduk->stock) {
+                    return redirect()->route('pesanan.index')
+                        ->with('error', 'Stok tidak cukup untuk ' . $item->produk->nama_produk);
                 }
             }
-
             // Buat transaksi ID unik
             $trx_id = 'TRX-' . strtoupper(uniqid());
             $totalHarga = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
             $jumlahTotal = $keranjangs->sum('jumlah');
 
-            // Simpan ke tabel Pesanan
             $pesanan = Pesanan::create([
                 'user_id' => $userId,
-                'produk_id' => $item->produk_id,
                 'trx_id' => $trx_id,
                 'nama_penerima' => $request->nama_penerima,
                 'alamat' => $request->alamat,
@@ -68,7 +88,6 @@ class PesananController
                 'tgl_pesanan' => Carbon::now()->toDateString(),
             ]);
 
-            // Simpan setiap produk sebagai detail
             foreach ($keranjangs as $item) {
                 PesananDetail::create([
                     'pesanan_id' => $pesanan->id,
@@ -78,11 +97,9 @@ class PesananController
                     'total_harga' => $item->produk->harga * $item->jumlah,
                 ]);
 
-                // Kurangi stok
                 $item->produk->stockproduk->decrement('stock', $item->jumlah);
             }
 
-            // Hapus keranjang
             Keranjang::where('user_id', $userId)->delete();
 
             DB::commit();
@@ -90,6 +107,28 @@ class PesananController
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('pesanan.index')->with('error', 'Gagal memproses pesanan: ' . $e->getMessage());
+        }
+    }
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+
+        $hashed = hash(
+            "sha512",
+            $request->order_id .
+                $request->status_code .
+                $request->gross_amount .
+                $serverKey
+        );
+
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+                $order = Pesanan::find($request->order_id);
+                if ($order) {
+                    $order->update(['status' => 'Paid']);
+                }
+            }
         }
     }
 }

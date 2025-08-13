@@ -141,7 +141,15 @@
             </li>
 
             <li class="menu-item">
-              <a href="setting-user" class="menu-link">
+              <a href="/data-grooming" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Basic"> Data Pet Gromming</div>
+              </a>
+            </li>
+
+
+            <li class="menu-item">
+              <a href="/setting-user" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Basic">User</div>
               </a>

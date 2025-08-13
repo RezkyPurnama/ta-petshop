@@ -4,87 +4,131 @@
 
 
     <!-- Hero Start -->
-    <div class="container-fluid bg-primary hero-header mb-5">
-
+    <div class="container-fluid bg-primary hero-header py-5 mb-3">
     </div>
-    <!-- Hero End -->
 
-    <!-- About Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <img class="img-fluid animated pulse infinite" src="img/shampoo-1.png">
+    <!-- Feature Start -->
+<div class="container-fluid py-5 mb-3"  style="background-color: #fff9f0;" data-aos="fade-right">
+    <div class="container text-center">
+        <!-- Heading -->
+        <p class="text-uppercase text-secondary mb-2" style="letter-spacing: 2px;">
+            Welcome to Q PetCare Padang!
+        </p>
+        <h2 class="mb-5">
+            Kami mengkhususkan diri dalam menawarkan berbagai macam produk hewan peliharaan, mulai dari makanan hingga aksesoris
+        </h2>
+
+        <!-- Feature Items -->
+        <div class="row g-4 justify-content-center mb-3">
+            <!-- Pet Health -->
+            <div class="col-md-4 col-sm-6">
+                <div class="feature-card p-4 h-100 text-center shadow-sm border-0 rounded-4 bg-white">
+                    <div class="icon-wrapper mb-3">
+                        <img src="{{ asset('user/assets/img/cat2.png') }}" alt="Pet Health" class="img-fluid" style="max-width: 80px;">
+                    </div>
+                    <h5 class="fw-bold text-dark">Pet Health</h5>
+                    <p class="text-muted mb-0">
+                        Produk dan panduan terbaik untuk menjaga kesehatan dan kesejahteraan hewan kesayangan Anda.
+                    </p>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <h1 class="text-primary mb-4">Healthy Hair <span class="fw-light text-dark">Is A Symbol Of Our
-                            Beauty</span></h1>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet, erat non
-                        malesuada consequat, nibh erat tempus risus, vitae porttitor purus nisl vitae purus. Praesent
-                        tristique odio ut rutrum pellentesque. Fusce eget molestie est, at rutrum est.</p>
-                    <p class="mb-4">Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no
-                        labore lorem sit. Sanctus clita duo justo et tempor.</p>
-                    <a class="btn btn-primary py-2 px-4" href="">Shop Now</a>
+            </div>
+
+            <!-- Grooming -->
+            <div class="col-md-4 col-sm-6">
+                <div class="feature-card p-4 h-100 text-center shadow-sm border-0 rounded-4 bg-white">
+                    <div class="icon-wrapper mb-3">
+                        <img src="{{ asset('user/assets/img/grooming.png') }}" alt="Grooming" class="img-fluid" style="max-width: 80px;">
+                    </div>
+                    <h5 class="fw-bold text-dark">Grooming</h5>
+                    <p class="text-muted mb-0">
+                        Layanan perawatan profesional agar hewan peliharaan Anda selalu tampil segar, bersih, dan bahagia.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pet Hotel -->
+            <div class="col-md-4 col-sm-6">
+                <div class="feature-card p-4 h-100 text-center shadow-sm border-0 rounded-4 bg-white">
+                    <div class="icon-wrapper mb-3">
+                        <img src="{{ asset('user/assets/img/pet-boarding.png') }}" alt="Pet Hotel" class="img-fluid" style="max-width: 80px;">
+                    </div>
+                    <h5 class="fw-bold text-dark">Pet Hotel</h5>
+                    <p class="text-muted mb-0">
+                        Tempat menginap yang aman, nyaman, dan penuh kasih sayang saat Anda harus bepergian.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- About End -->
+</div>
+<!-- Feature End -->
 
-     <!-- Feature Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="feature-item position-relative bg-primary text-center p-3">
-                        <div class="border py-5 px-3">
-                            <i class="fa fa-leaf fa-3x text-dark mb-4"></i>
-                            <h5 class="text-white mb-0">100% Natural</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="feature-item position-relative bg-primary text-center p-3">
-                        <div class="border py-5 px-3">
-                            <i class="fa fa-tint-slash fa-3x text-dark mb-4"></i>
-                            <h5 class="text-white mb-0">Anti Hair Fall</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="feature-item position-relative bg-primary text-center p-3">
-                        <div class="border py-5 px-3">
-                            <i class="fa fa-times fa-3x text-dark mb-4"></i>
-                            <h5 class="text-white mb-0">Hypoallergenic</h5>
-                        </div>
-                    </div>
+
+    <section class="about-section py-5 mb-5" style="background-color: #fff9f0;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Teks -->
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h2 class="fw-bold mb-4">Tentang Q Petcare Padang</h2>
+                <p class="text-muted">
+                    PetShop adalah toko hewan peliharaan terlengkap yang telah melayani kebutuhan hewan peliharaan sejak 2010. Kami berkomitmen untuk menyediakan produk berkualitas tinggi dan layanan profesional untuk semua jenis hewan peliharaan.
+                </p>
+                <p class="text-muted">
+                    Dengan tim yang berpengalaman dan berdedikasi, kami selalu berusaha memberikan pengalaman berbelanja terbaik dan solusi perawatan terbaik untuk hewan kesayangan Anda.
+                </p>
+                <p class="text-muted">
+                    Visi kami adalah menjadi toko hewan peliharaan terpercaya yang membantu meningkatkan kualitas hidup hewan peliharaan dan memperkuat ikatan antara pemilik dan hewan kesayangannya.
+                </p>
+            </div>
+
+            <!-- Gambar -->
+            <div class="col-md-6 text-center">
+                <img src="{{ asset('user/assets/img/blog-3.jpg') }}" alt="Tentang PetShop" class="img-fluid rounded-4 shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Section Start -->
+<div class="container-fluid py-5 mb-3" style="background-color: #fff9f0;" data-aos="zoom-in">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Kiri -->
+            <div class="col-md-6 mb-4">
+                <p class="section-subtitle">
+                    Q Petcare Padang – Petshop Terlengkap!
+                </p>
+                <h2 class="section-title">
+                    Butuh solusi untuk perawatan hewan peliharaan Anda?
+                </h2>
+                <p class="section-desc">
+                    <strong>Q PetCare Padang</strong> siap membantu! Dengan produk berkualitas dan tenaga profesional berpengalaman,
+                    kami menyediakan berbagai layanan mulai dari makanan, grooming, hingga penginapan hewan.
+                </p>
+                <a href="{{ url('https://api.whatsapp.com/send?phone=628116666604&text=Nama%20:%0ANo%20HP%20:%0AAlamat%20:%0AHalo,%20mimin%20saya%20mau%20beli&fbclid=PAZXh0bgNhZW0CMTEAAae8P9Pla9ZD_SpifyEDq2fmI3247l1oYCKpr4vhNBVjLdU4ta1fph78xTA7EQ_aem_wWt83jtuQq5TR_ycCGUFcg') }}" class="btn btn-outline-primary rounded-pill px-4">
+                    Hubungi Kami!
+                </a>
+            </div>
+
+            <!-- Kanan -->
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="info-card">
+                    <h4 class="info-title">
+                        <img src="{{ asset('user/assets/img/clock.png') }}" alt="Jam">
+                        Jam Operasional
+                    </h4>
+                    <hr>
+                    <p><strong>Pets Shop</strong><br> Senin – Minggu : 09:00 – 21:00</p>
+                    <p><strong>Grooming</strong><br> Senin – Minggu : 09:00 – 19:00 WIB</p>
+                    <p><strong>Pet Hotel</strong><br> Senin – Minggu : 12:00 – 18:00 WIB</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Feature End -->
-
-
-    <!-- Newsletter Start -->
-    <div class="container-fluid newsletter bg-primary py-5 my-5">
-        <div class="container py-5">
-            <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h1 class="text-white mb-3"><span class="fw-light text-dark">Let's Subscribe</span> The Newsletter</h1>
-                <p class="text-white mb-4">Subscribe now to get 30% discount on any of our products</p>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-7 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="position-relative w-100 mt-3 mb-2">
-                        <input class="form-control w-100 py-4 ps-4 pe-5" type="text" placeholder="Enter Your Email"
-                            style="height: 48px;">
-                        <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i
-                                class="fa fa-paper-plane text-white fs-4"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Newsletter End -->
+</div>
 
 
 

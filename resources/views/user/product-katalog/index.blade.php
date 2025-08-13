@@ -46,7 +46,7 @@
                     @csrf
                     <input type="hidden" name="produk_id" value="{{ $produk->id }}">
                     <input type="hidden" name="jumlah" value="1"> <!-- default 1, bisa diubah kalau mau pakai input jumlah -->
-                    <button type="submit" class="btn btn-outline-primary px-3">
+                    <button type="submit" class="btn btn-outline-danger px-3">
                         Add To Cart
                     </button>
                  </form>

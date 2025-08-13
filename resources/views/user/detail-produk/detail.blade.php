@@ -3,7 +3,23 @@
 @section('content')
 
 <!-- Hero Section -->
-<div class="container-fluid bg-primary hero-header py-5 mb-5"></div>
+{{--  <div class="container-fluid bg-primary hero-header py-5 mb-5"></div>  --}}
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary hero-header mb-5">
+        <div class="container text-center">
+            <h1 class="display-4 text-white mb-3 animated slideInDown">Detail Produk</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center mb-0 animated slideInDown">
+                    <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="/product">Product</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Detail Product</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Hero End -->
 
 
 <div class="container py-5">
@@ -55,7 +71,7 @@
                        {{ ($produk->stockproduk->stock ?? 0) < 1 ? 'disabled' : '' }}>
 
                 <button type="submit"
-                        class="btn btn-primary text-dark fw-semibold d-flex align-items-center gap-2"
+                        class="btn btn-outline-danger  text-dark fw-semibold d-flex align-items-center gap-2"
                         {{ ($produk->stockproduk->stock ?? 0) < 1 ? 'disabled' : '' }}>
                     <i class="fas fa-cart-plus"></i> Tambah ke Keranjang
                 </button>

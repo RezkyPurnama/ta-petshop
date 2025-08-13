@@ -5,7 +5,6 @@
 <div class="card mt-4">
   <h5 class="card-header">Daftar Pengguna</h5>
   <div class="card-body">
-    {{-- Hapus class "table-responsive text-nowrap" agar tidak ada scroll --}}
     <table class="table table-bordered">
       <thead class="text-center">
         <tr>
@@ -37,19 +36,10 @@
                 <i class="bx bx-dots-vertical-rounded"></i>
               </button>
               <div class="dropdown-menu">
-                {{--  Tombol Edit  --}}
-                {{--  <a class="dropdown-item" href="{{ route('user.edit', $dataUser->id) }}">  --}}
+                {{-- Tombol Edit --}}
+                <a class="dropdown-item" href="{{ route('setting-user.edit', $dataUser->id) }}">
                   <i class="bx bx-edit-alt me-1"></i> Edit
                 </a>
-
-                {{-- Tombol Hapus --}}
-                {{--  <form action="{{ route('user.destroy', $dataUser->id) }}" method="POST">  --}}
-                  @csrf
-                  @method('DELETE')
-                  <button class="dropdown-item" onclick="return confirm('Hapus user ini?')">
-                    <i class="bx bx-trash me-1"></i> Hapus
-                  </button>
-                </form>
               </div>
             </div>
           </td>

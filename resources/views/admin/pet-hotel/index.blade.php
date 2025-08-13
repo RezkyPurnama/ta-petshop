@@ -8,7 +8,7 @@
     </h3>
 
     <div class="card-body">
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered align-middle">
         <thead class="text-center">
           <tr>
             <th>Nama Pemilik</th>
@@ -21,7 +21,7 @@
             <th>Sertifikat</th>
             <th>Check In</th>
             <th>Check Out</th>
-            <th width="10%">Aksi</th>
+            <th width="20%">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -34,13 +34,36 @@
             <td class="text-center">{{ $item->jumlah_hewan }}</td>
             <td>{{ $item->ras_hewan }}</td>
             <td>{{ $item->status_vaksin }}</td>
-            <td>{{ $item->sertifikat_hewan }}</td>
-            <td>{{ $item->check_in }}</td>
-            <td>{{ $item->check_out }}</td>
             <td class="text-center">
-              <a href="{{ route('data-pethotel.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                <i class="bx bx-edit"></i> Edit
-              </a>
+                @if($item->sertifikat_hewan === 'Ada')
+                    <span class="badge bg-success">Ada</span>
+                @elseif($item->sertifikat_hewan === 'Tidak')
+                    <span class="badge bg-danger">Tidak</span>
+                @else
+                    <span class="badge bg-secondary">Belum Diisi</span>
+                @endif
+            </td>
+
+            <td>{{ \Carbon\Carbon::parse($item->check_in)->format('d-m-Y') }}</td>
+            <td>{{ \Carbon\Carbon::parse($item->check_out)->format('d-m-Y') }}</td>
+            <td>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ route('data-pethotel.edit', $item->id) }}">
+                    <i class="bx bx-edit-alt me-1"></i> Edit
+                  </a>
+                  <form action="{{ route('data-pethotel.destroy', $item->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="dropdown-item" onclick="return confirm('Hapus data ini?')">
+                      <i class="bx bx-trash me-1"></i> Hapus
+                    </button>
+                  </form>
+                </div>
+              </div>
             </td>
           </tr>
           @empty

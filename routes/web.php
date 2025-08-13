@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\user\GrommingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\LoginController;
@@ -16,6 +17,9 @@ use App\Http\Controllers\admin\StockProdukController;
 use App\Http\Controllers\admin\DataPetHotelController;
 use App\Http\Controllers\user\ProductKatalogController;
 use App\Http\Controllers\admin\DashboardAdminController;
+use App\Http\Controllers\Admin\GroomingController;
+use App\Http\Controllers\user\PetHotelController;
+use App\Models\PetHotel;
 
 Route::get('/', [LandingPageContoller::class, 'user']);
 
@@ -25,8 +29,8 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/stock-produk', StockProdukController::class);
-
-    Route::get('/data-pethotel', [DataPetHotelController::class, 'index'])->name('index');
+    Route::resource('/data-grooming', GroomingController::class);
+    Route::resource('/data-pethotel', DataPetHotelController::class);
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -38,8 +42,12 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cart/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
     Route::patch('/cart/{id}/update-jumlah', [KeranjangController::class, 'updateJumlah'])->name('keranjang.updateJumlah');
 
-    Route::get('/cekout', [PesananController::class, 'index'])->name('pesanan.index');
+    Route::get('/checkout', [PesananController::class, 'index'])->name('pesanan.index');
     Route::post('/checkout', [PesananController::class, 'store'])->name('pesanan.store');
+    Route::post('/midtrans-callback', [PesananController::class, 'callback'])->name('pesanan.callback');
+
+
+
 });
 
 
@@ -58,3 +66,9 @@ Route::get('/about', [AboutController::class, 'index']);
 Route::get('/product', [ProductKatalogController::class, 'index']);
 
 Route::get('/detail-produk/{nama_produk}', [DetailController::class, 'detail'])->name('detail-produk');
+
+Route::get('/pet-hotel', [PetHotelController::class, 'index'])->name('pet-hotel.index');
+Route::post('/pet-hotel', [PetHotelController::class, 'store'])->name('pet-hotel.store');
+
+Route::get('/grooming', [GrommingController::class, 'index'])->name('groomimg.index');
+Route::post('/grooming', [GrommingController::class, 'store'])->name('groomimg.store');

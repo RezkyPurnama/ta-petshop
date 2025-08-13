@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pethotels', function (Blueprint $table) {
+            $table->id();
             $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('nama_hewan');
