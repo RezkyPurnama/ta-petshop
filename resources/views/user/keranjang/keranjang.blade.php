@@ -4,10 +4,7 @@
 <style>
 
 
-  .hero-header {
-    min-height: 100px;
-    background: linear-gradient(135deg, #cd2002, #cd2002);
-  }
+
 
   .card-custom {
     border: none;
@@ -119,8 +116,9 @@
   }
 </style>
 
-<!-- Hero Section -->
-<div class="container-fluid hero-header py-3 mb-4"></div>
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary hero-header py-5 mb-3">
+    </div>
 
 <!-- Cart Section -->
 <div class="container pb-5 my-4">

@@ -12,13 +12,15 @@ class KeranjangController
     // Menampilkan isi keranjang
     public function index()
     {
+
         $keranjangs = Keranjang::with('produk')
             ->where('user_id', Auth::id())
             ->get();
-
+        $cartCount = Keranjang::where('user_id', Auth::id())->count();
         $total = $keranjangs->sum('totalharga');
 
-        return view('user.keranjang.keranjang', compact('keranjangs', 'total'));
+
+        return view('user.keranjang.keranjang', compact('keranjangs', 'total','cartCount'));
 
     }
 

@@ -147,6 +147,13 @@
               </a>
             </li>
 
+            <li class="menu-item">
+              <a href="/data-klinik" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Basic">Data Pet Klinik</div>
+              </a>
+            </li>
+
 
             <li class="menu-item">
               <a href="/setting-user" class="menu-link">

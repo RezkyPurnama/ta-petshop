@@ -2,10 +2,6 @@
 
 @section('content')
 <style>
-  .hero-header {
-    min-height: 100px;
-    background: linear-gradient(135deg, #cd2002, #cd2002);
-  }
   .card-custom {
     border: none;
     border-radius: 1rem;
@@ -34,7 +30,9 @@
 </style>
 
 <!-- Hero -->
-<div class="container-fluid hero-header py-3 mb-4"></div>
+    
+    <div class="container-fluid bg-primary hero-header py-5 mb-3">
+    </div>
 
 <div class="container pb-5">
   <h1 class="text-center mb-5">Checkout</h1>

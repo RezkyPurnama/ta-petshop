@@ -19,6 +19,7 @@ use App\Http\Controllers\user\ProductKatalogController;
 use App\Http\Controllers\admin\DashboardAdminController;
 use App\Http\Controllers\Admin\GroomingController;
 use App\Http\Controllers\user\PetHotelController;
+use App\Http\Controllers\user\RiwayatPesananController;
 use App\Models\PetHotel;
 
 Route::get('/', [LandingPageContoller::class, 'user']);
@@ -31,6 +32,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/stock-produk', StockProdukController::class);
     Route::resource('/data-grooming', GroomingController::class);
     Route::resource('/data-pethotel', DataPetHotelController::class);
+    Route::resource('/data-klinik', DataPetHotelController::class);
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -47,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/midtrans-callback', [PesananController::class, 'callback'])->name('pesanan.callback');
 
 
+    Route::get('/riwayat-pesanan', [RiwayatPesananController::class, 'index'])->name('riwayat.index');
 
 });
 

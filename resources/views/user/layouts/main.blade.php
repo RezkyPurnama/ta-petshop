@@ -22,7 +22,7 @@
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('user/assets/lib/animate/animate.min.css') }} ">
@@ -44,7 +44,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light p-0 navbar-custom">
             <a class="navbar-brand d-flex align-items-center gap-2 me-auto">
-                <h2 class="text-white mb-0">Petcare</h2>
+                <h2 class="text-white mb-0">Q Petcare</h2>
                 {{--  <img src="{{ asset('user/assets/img/blog-3.jpg') }}" alt="Logo Petcare" style="height:40px;">  --}}
             </a>
 
@@ -70,12 +70,19 @@
 
                     <a href="{{ url('/grooming') }}" class="nav-item nav-link">Grooming</a>
                     <a href="{{ url('/pet-hotel') }}" class="nav-item nav-link">Pet Hotel</a>
+                    <a href="{{ url('/pet-klinik') }}" class="nav-item nav-link">Pet Klinik</a>
 
                     @auth
                         {{-- Jika user biasa (role = 0) --}}
                         @if (Auth::user()->isAdmin == 0)
                             <a href="{{ url('/cart') }}" class="nav-item nav-link position-relative">
                                 <i class="fas fa-shopping-cart me-1"></i>
+                                                {{-- Badge jumlah item --}}
+                            @if(isset($cartCount) && $cartCount > 0)
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ $cartCount }}
+                                </span>
+                            @endif
                             </a>
                         @endif
 
@@ -158,11 +165,11 @@
                 </div>
                 <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
                     <h5 class="mb-4">Popular Link</h5>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Privacy Policy</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">Career</a>
+                    <a class="btn btn-link" href="/about">About Us</a>
+                    <a class="btn btn-link" href="/product">Products</a>
+                    <a class="btn btn-link" href="/grooming">Grooming</a>
+                    <a class="btn btn-link" href="/pet-hotel">Pet Hotel</a>
+
                 </div>
             </div>
         </div>
