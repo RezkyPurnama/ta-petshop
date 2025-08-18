@@ -9,25 +9,6 @@
         @csrf
         @method('PUT')
 
-        <div class="mb-3">
-          <label for="nama_pemilik" class="form-label">Nama Pemilik</label>
-          <input type="text" name="nama_pemilik" id="nama_pemilik"
-            class="form-control @error('nama_pemilik') is-invalid @enderror"
-            value="{{ old('nama_pemilik', $grooming->nama_pemilik) }}" required>
-          @error('nama_pemilik')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="mb-3">
-          <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
-          <input type="text" name="nomor_telepon" id="nomor_telepon"
-            class="form-control @error('nomor_telepon') is-invalid @enderror"
-            value="{{ old('nomor_telepon', $grooming->nomor_telepon) }}" required>
-          @error('nomor_telepon')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
 
         <div class="mb-3">
           <label for="nama_hewan" class="form-label">Nama Hewan</label>
@@ -73,22 +54,9 @@
         </div>
 
         <div class="mb-3">
-          <label for="jumlah_hewan" class="form-label">Jumlah Hewan</label>
-          <input type="number" name="jumlah_hewan" id="jumlah_hewan"
-            class="form-control @error('jumlah_hewan') is-invalid @enderror"
-            value="{{ old('jumlah_hewan', $grooming->jumlah_hewan) }}" required>
-          @error('jumlah_hewan')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="mb-3">
-          <label for="riwayat_kejang" class="form-label">Riwayat Kejang</label>
-          <select name="riwayat_kejang" id="riwayat_kejang" class="form-select @error('riwayat_kejang') is-invalid @enderror" required>
-            <option value="Ada" {{ old('riwayat_kejang', $grooming->riwayat_kejang) == 'Ada' ? 'selected' : '' }}>Ada</option>
-            <option value="Tidak Ada" {{ old('riwayat_kejang', $grooming->riwayat_kejang) == 'Tidak Ada' ? 'selected' : '' }}>Tidak Ada</option>
-          </select>
-          @error('riwayat_kejang')
+          <label for="riwayat_sakit" class="form-label">Riwayat Sakit</label>
+          <textarea name="riwayat_sakit" id="riwayat_sakit" class="form-control @error('riwayat_sakit') is-invalid @enderror">{{ old('riwayat_sakit', $grooming->riwayat_sakit) }}</textarea>
+          @error('riwayat_sakit')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>
@@ -119,19 +87,6 @@
             class="form-control @error('jam_booking') is-invalid @enderror"
             value="{{ old('jam_booking', $grooming->jam_booking) }}" required>
           @error('jam_booking')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="mb-3">
-          <label for="jenis_layanan" class="form-label">Jenis Layanan</label>
-          <select name="jenis_layanan" id="jenis_layanan" class="form-select @error('jenis_layanan') is-invalid @enderror" required>
-            <option value="">-- Pilih --</option>
-            <option value="Ke Toko" {{ old('jenis_layanan', $grooming->jenis_layanan) == 'Ke Toko' ? 'selected' : '' }}>Ke Toko</option>
-            <option value="Home Service" {{ old('jenis_layanan', $grooming->jenis_layanan) == 'Home Service' ? 'selected' : '' }}>Home Service</option>
-            <option value="Pickup" {{ old('jenis_layanan', $grooming->jenis_layanan) == 'Pickup' ? 'selected' : '' }}>Pickup</option>
-          </select>
-          @error('jenis_layanan')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>

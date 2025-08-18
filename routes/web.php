@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\user\GrommingController;
+use App\Http\Controllers\user\KlinikController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\LoginController;
@@ -17,10 +18,11 @@ use App\Http\Controllers\admin\StockProdukController;
 use App\Http\Controllers\admin\DataPetHotelController;
 use App\Http\Controllers\user\ProductKatalogController;
 use App\Http\Controllers\admin\DashboardAdminController;
+use App\Http\Controllers\admin\DataKlinikController;
 use App\Http\Controllers\Admin\GroomingController;
 use App\Http\Controllers\user\PetHotelController;
 use App\Http\Controllers\user\RiwayatPesananController;
-use App\Models\PetHotel;
+use App\Http\Controllers\user\UserGroomingController;
 
 Route::get('/', [LandingPageContoller::class, 'user']);
 
@@ -32,7 +34,12 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/stock-produk', StockProdukController::class);
     Route::resource('/data-grooming', GroomingController::class);
     Route::resource('/data-pethotel', DataPetHotelController::class);
-    Route::resource('/data-klinik', DataPetHotelController::class);
+    Route::resource('/data-klinik', DataKlinikController::class);
+
+    // laporan
+    Route::get('laporan-klinik/pdf', [DataKlinikController::class, 'laporanPDF'])->name('data-klinik.laporan.pdf');
+    Route::get('laporan-pethotel/pdf', [DataPetHotelController::class, 'laporanPDF'])->name('data-pethotel.laporan.pdf');
+    Route::get('laporan-grooming/pdf', [GroomingController::class, 'laporanPDF'])->name('data-grooming.laporan.pdf');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -50,6 +57,11 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/riwayat-pesanan', [RiwayatPesananController::class, 'index'])->name('riwayat.index');
+
+
+    Route::post('/pet-klinik', [KlinikController::class, 'store'])->name('pet-klinik.store');
+    Route::post('/grooming', [UserGroomingController::class, 'store'])->name('grooming.store');
+    Route::post('/pet-hotel', [PetHotelController::class, 'store'])->name('pet-hotel.store');
 
 });
 
@@ -71,7 +83,10 @@ Route::get('/product', [ProductKatalogController::class, 'index']);
 Route::get('/detail-produk/{nama_produk}', [DetailController::class, 'detail'])->name('detail-produk');
 
 Route::get('/pet-hotel', [PetHotelController::class, 'index'])->name('pet-hotel.index');
-Route::post('/pet-hotel', [PetHotelController::class, 'store'])->name('pet-hotel.store');
 
-Route::get('/grooming', [GrommingController::class, 'index'])->name('groomimg.index');
-Route::post('/grooming', [GrommingController::class, 'store'])->name('groomimg.store');
+
+Route::get('/grooming', [UserGroomingController::class, 'index'])->name('grooming.index');
+
+
+Route::get('/pet-klinik', [KlinikController::class, 'index'])->name('pet-klinik.index');
+

@@ -22,8 +22,7 @@
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
-
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('user/assets/lib/animate/animate.min.css') }} ">
     <link href="{{ asset('user/assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
@@ -37,8 +36,7 @@
 
 <body>
 
-    @include('user.layouts.spinner');
-
+    @include('user.layouts.spinner')
 <!-- Navbar Start -->
 <div class="container-fluid sticky-top">
     <div class="container">
@@ -75,7 +73,7 @@
                     @auth
                         {{-- Jika user biasa (role = 0) --}}
                         @if (Auth::user()->isAdmin == 0)
-                            <a href="{{ url('/cart') }}" class="nav-item nav-link position-relative">
+                            <a href="{{ url(path: '/cart') }}" class="nav-item nav-link position-relative">
                                 <i class="fas fa-shopping-cart me-1"></i>
                                                 {{-- Badge jumlah item --}}
                             @if(isset($cartCount) && $cartCount > 0)
@@ -204,6 +202,10 @@
     <script src="{{ asset('user/assets/js/main.js') }}"></script>
     {{--  Animasi AOS  --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  @stack('scripts')
 
  <script>
      AOS.init();

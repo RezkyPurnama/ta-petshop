@@ -13,20 +13,19 @@ return new class extends Migration
     {
         Schema::create('pethotels', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('nama_hewan');
             $table->string('jenis_hewan'); // Misalnya: Kucing, Anjing, dll
-            $table->integer('jumlah_hewan');
-            $table->string('ras_hewan')->nullable();
             $table->text('riwayat_sakit')->nullable();
-            $table->string('status_vaksin')->nullable(); // Contoh: Sudah / Belum
             $table->string('umur_hewan')->nullable();
             $table->string('berat_hewan')->nullable();
-            $table->enum('sertifikat_hewan', ['Ada', 'Tidak']);
+            $table->string('tipe_room')->nullable();
             $table->date('check_in');
             $table->date('check_out');
             $table->text('keterangan')->nullable();
+            $table->enum('status', ['booking', 'checkin', 'selesai', 'cancel'])->default('booking');
             $table->timestamps();
         });
     }

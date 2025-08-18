@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('groomings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('nama_hewan');
             $table->string('jenis_hewan'); // Kucing, Anjing, dll
             $table->integer('umur_hewan'); // dalam bulan atau tahun
             $table->decimal('berat_hewan', 5, 2); // kg
-            $table->integer('jumlah_hewan');
-            $table->enum('riwayat_kejang', ['Ada', 'Tidak Ada']);
+            $table->text('riwayat_sakit')->nullable();
             $table->string('layanan_grooming'); // Basic Grooming, Full Grooming, dll
             $table->date('tanggal_booking');
             $table->time('jam_booking');
-            $table->enum('jenis_layanan', ['Ke Toko', 'Home Service', 'Pickup']);
+            $table->enum('status', ['booking', 'progres', 'selesai', 'cancel'])->default('booking');
             $table->timestamps();
         });
     }

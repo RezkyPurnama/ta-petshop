@@ -7,17 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Grooming extends Model
 {
     protected $fillable = [
+        'user_id',
         'nama_pemilik',
         'nomor_telepon',
         'nama_hewan',
         'jenis_hewan',
         'umur_hewan',
         'berat_hewan',
-        'jumlah_hewan',
-        'riwayat_kejang',
+        'riwayat_sakit',
         'layanan_grooming',
         'tanggal_booking',
         'jam_booking',
-        'jenis_layanan',
+        'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

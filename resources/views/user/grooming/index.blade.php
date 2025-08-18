@@ -1,8 +1,6 @@
 @extends('user.layouts.main')
 
 @section('content')
-<div class="container-fluid bg-primary hero-header py-5 mb-5"></div>
-
 
 <style>
   .object-fit-cover { object-fit: cover; }
@@ -74,6 +72,8 @@
   }
 
 </style>
+
+<div class="container-fluid bg-primary hero-header py-5 mb-5"></div>
 
 <!-- Grooming Card -->
 <section class="grooming-section py-5">
@@ -205,84 +205,107 @@
     <h3 class="text-center fw-bold">Form Booking Grooming</h3>
     <hr class="mx-auto" style="width: 60px; border: 2px solid #f1c40f;">
 
-    <form action="" method="POST" class="mt-4">
-        @csrf
+   <form id="bookingForm" action="{{ route('grooming.store') }}" method="POST" class="mt-4">
+    @csrf
 
-        <div class="mb-3">
-            <label class="form-label">Nama Pemilik</label>
-            <input type="text" name="nama_pemilik" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Nama Hewan</label>
+        <input type="text" name="nama_hewan" class="form-control" required>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Nomor Telepon</label>
-            <input type="text" name="nomor_telepon" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Jenis Hewan</label>
+        <select name="jenis_hewan" class="form-select" required>
+            <option value="">-- Pilih Jenis Hewan --</option>
+            <option value="Kucing">Kucing</option>
+            <option value="Anjing">Anjing</option>
+            <option value="Lainnya">Lainnya</option>
+        </select>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Nama Hewan</label>
-            <input type="text" name="nama_hewan" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Umur Hewan</label>
+        <input type="number" name="umur_hewan" class="form-control" placeholder="dalam tahun" required>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Jenis Hewan</label>
-            <select name="jenis_hewan" class="form-select" required>
-                <option value="">-- Pilih Jenis Hewan --</option>
-                <option value="Kucing">Kucing</option>
-                <option value="Anjing">Anjing</option>
-                <option value="Lainnya">Lainnya</option>
-            </select>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Berat Hewan (kg)</label>
+        <input type="number" step="0.01" name="berat_hewan" class="form-control" required>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Umur Hewan</label>
-            <input type="number" name="umur_hewan" class="form-control" placeholder="dalam tahun" required>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Riwayat Sakit</label>
+        <textarea name="riwayat_sakit" class="form-control" placeholder="Isi jika ada, boleh dikosongkan"></textarea>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Berat Hewan (kg)</label>
-            <input type="number" step="0.01" name="berat_hewan" class="form-control" required>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Layanan Grooming</label>
+        <select name="layanan_grooming" class="form-select" required>
+            <option value="">-- Pilih Layanan Grooming --</option>
+            <option value="Basic Grooming">Basic Grooming</option>
+            <option value="Full Grooming">Full Grooming</option>
+            <option value="Premium Grooming">Premium Grooming</option>
+        </select>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Jumlah Hewan</label>
-            <input type="number" name="jumlah_hewan" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Riwayat Kejang</label>
-            <select name="riwayat_kejang" class="form-select" required>
-                <option value="">-- Pilih --</option>
-                <option value="Ada">Ada</option>
-                <option value="Tidak Ada">Tidak Ada</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Layanan Grooming</label>
-            <input type="text" name="layanan_grooming" class="form-control" placeholder="Contoh: Basic Grooming, Full Grooming" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Tanggal Booking</label>
-            <input type="date" name="tanggal_booking" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Jam Booking</label>
-            <input type="time" name="jam_booking" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Jenis Layanan</label>
-            <select name="jenis_layanan" class="form-select" required>
-                <option value="">-- Pilih --</option>
-                <option value="Ke Toko">Ke Toko</option>
-                <option value="Home Service">Home Service</option>
-                <option value="Pickup">Pickup</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Kirim Booking</button>
-    </form>
+    <div class="mb-3">
+    <label class="form-label">Tanggal Booking</label>
+    <input type="date" name="tanggal_booking" class="form-control"
+           required min="{{ \Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d') }}">
 </div>
+
+<div class="mb-3">
+    <label class="form-label">Jam Booking</label>
+    <input type="time"
+           name="jam_booking"
+           class="form-control"
+           required
+           min="10:00"
+           max="19:00"
+           oninvalid="this.setCustomValidity('Silakan pilih jam antara 10:00 sampai 19:00')"
+           oninput="this.setCustomValidity('')">
+</div>
+
+
+    <button type="submit" class="btn btn-primary">Kirim Booking</button>
+</form>
+
+</div>
+
 @endsection
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Konfirmasi sebelum submit
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Konfirmasi Booking",
+            text: "Apakah Anda yakin ingin mengirim booking grooming?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Kirim!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
+        });
+    });
+</script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session("success") }}',
+        showConfirmButton: false,
+        timer: 2000
+    });
+</script>
+@endif
+@endpush

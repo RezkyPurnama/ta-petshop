@@ -156,34 +156,7 @@
           <p>Waktu bermain dan sosialisasi terjadwal untuk menjaga mood dan kebahagiaan anabul.</p>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="service-card">
-          <div class="service-icon"><i class="bi bi-heart-pulse"></i></div>
-          <h5>Daily Health Check</h5>
-          <p>Pemeriksaan kesehatan ringan setiap hari untuk memastikan kondisi anabul tetap prima.</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="service-card">
-          <div class="service-icon"><i class="bi bi-flower1"></i></div>
-          <h5>Aromatherapy Rooms</h5>
-          <p>Ruang beraroma menenangkan untuk membantu anabul rileks selama menginap.</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="service-card">
-          <div class="service-icon"><i class="bi bi-camera"></i></div>
-          <h5>Photo & Video Updates</h5>
-          <p>Kirimkan momen menggemaskan anabul Anda setiap hari melalui WhatsApp atau email.</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="service-card">
-          <div class="service-icon"><i class="bi bi-truck"></i></div>
-          <h5>Pick-up & Drop-off</h5>
-          <p>Layanan antar-jemput aman dan nyaman dengan kendaraan khusus hewan peliharaan.</p>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -209,17 +182,8 @@
     <h3 class="text-center fw-bold">Form Booking Pet Hotel</h3>
     <hr class="mx-auto" style="width: 60px; border: 2px solid #f1c40f;">
 
-    <form action="#" method="POST" class="mt-4">
+    <form id="petHotelForm" action="{{ route('pet-hotel.store') }}" method="POST" class="mt-4">
         @csrf
-        <div class="mb-3">
-            <label class="form-label">Nama Pemilik </label>
-            <input type="text" name="nama_pemilik" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Nomor Telepon</label>
-            <input type="text" name="nomor_telepon" class="form-control" required>
-        </div>
 
         <div class="mb-3">
             <label class="form-label">Nama Hewan Peliharaan</label>
@@ -236,27 +200,8 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Jumlah Hewan</label>
-            <input type="number" name="jumlah_hewan" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Ras Hewan</label>
-            <input type="text" name="ras_hewan" class="form-control">
-        </div>
-
-        <div class="mb-3">
             <label class="form-label">Riwayat Sakit</label>
             <input type="text" name="riwayat_sakit" class="form-control">
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Status Vaksin</label>
-            <select name="status_vaksin" class="form-select">
-                <option value="">-- Pilih Status Vaksin --</option>
-                <option value="Sudah">Sudah</option>
-                <option value="Belum">Belum</option>
-            </select>
         </div>
 
         <div class="mb-3">
@@ -270,22 +215,20 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Sertifikat Hewan</label>
-            <select name="sertifikat_hewan" class="form-select" required>
-                <option value="">-- Pilih --</option>
-                <option value="Ada">Ada</option>
-                <option value="Tidak">Tidak</option>
-            </select>
+            <label class="form-label">Tipe Room</label>
+            <input type="text" name="tipe_room" class="form-control" placeholder="contoh: VIP / Standard">
         </div>
 
         <div class="mb-3">
             <label class="form-label">Check-In</label>
-            <input type="date" name="check_in" class="form-control" required>
+            <input type="date" name="check_in" class="form-control" required
+                   min="{{ \Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d') }}">
         </div>
 
         <div class="mb-3">
             <label class="form-label">Check-Out</label>
-            <input type="date" name="check_out" class="form-control" required>
+            <input type="date" name="check_out" class="form-control" required
+                  min="{{ \Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d') }}">
         </div>
 
         <div class="mb-3">
@@ -296,4 +239,53 @@
         <button type="submit" class="btn btn-primary">Kirim Booking</button>
     </form>
 </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Set min check-out berdasarkan check-in
+    const checkIn = document.querySelector('input[name="check_in"]');
+    const checkOut = document.querySelector('input[name="check_out"]');
+
+    checkIn.addEventListener('change', function() {
+        checkOut.min = this.value;
+        if (checkOut.value < this.value) {
+            checkOut.value = this.value;
+        }
+    });
+
+    // Konfirmasi sebelum submit
+    document.getElementById("petHotelForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Konfirmasi Booking",
+            text: "Apakah Anda yakin ingin mengirim booking Pet Hotel?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Kirim!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
+        });
+    });
+</script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session("success") }}',
+        showConfirmButton: false,
+        timer: 2000
+    });
+</script>
+@endif
+@endpush
+
+
 @endsection

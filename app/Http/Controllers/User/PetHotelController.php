@@ -4,35 +4,47 @@ namespace App\Http\Controllers\user;
 
 use App\Models\PetHotel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PetHotelController
 {
-
     public function index()
     {
-        return view('user.pet-hotel.index');
+        // Ambil data pemilik hewan sesuai user yang login, jika ingin menampilkan data user tertentu
+        $petHotels = PetHotel::where('user_id', Auth::id())->latest()->get();
+
+        return view('user.pet-hotel.index', compact('petHotels'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_pemilik'     => 'required|string|max:255',
-            'nomor_telepon'    => 'required|string|max:15',
-            'nama_hewan'       => 'required|string|max:255',
-            'jenis_hewan'      => 'required|string',
-            'jumlah_hewan'     => 'required|integer',
-            'ras_hewan'        => 'nullable|string|max:255',
-            'riwayat_sakit'    => 'nullable|string|max:255',
-            'status_vaksin'    => 'nullable|string',
-            'umur_hewan'       => 'nullable|string|max:50',
-            'berat_hewan'      => 'nullable|string|max:50',
-            'sertifikat_hewan' => 'required|string',
-            'check_in'         => 'required|date',
-            'check_out'        => 'required|date|after_or_equal:check_in',
-            'keterangan'       => 'nullable|string',
+            'nama_hewan'     => 'required|string|max:255',
+            'jenis_hewan'    => 'required|string|max:50',
+            'riwayat_sakit'  => 'nullable|string',
+            'umur_hewan'     => 'nullable|string|max:50',
+            'berat_hewan'    => 'nullable|string|max:50',
+            'tipe_room'      => 'required|string|max:50',
+            'check_in'       => 'required|date|after_or_equal:today',
+            'check_out'      => 'required|date|after_or_equal:check_in',
+            'keterangan'     => 'nullable|string',
         ]);
 
-        PetHotel::create($validated);
-
+        // Tambahkan user_id secara otomatis
+        PetHotel::create([
+            'user_id' => Auth::id(),
+            'nama_pemilik' => Auth::user()->name,
+            'nomor_telepon' => Auth::user()->no_telepon ?? '-',
+            'nama_hewan' => $request->nama_hewan,
+            'jenis_hewan' => $request->jenis_hewan,
+            'riwayat_sakit' => $request->riwayat_sakit,
+            'umur_hewan' => $request->umur_hewan,
+            'berat_hewan' => $request->berat_hewan ?? '-',
+            'tipe_room' => $request->tipe_room,
+            'check_in' => $request->check_in,
+            'check_out' => $request->check_out,
+            'keterangan' => $request->keterangan,
+        ]);
         return redirect()->route('pet-hotel.index')
             ->with('success', 'Booking Pet Hotel berhasil dibuat!');
     }
