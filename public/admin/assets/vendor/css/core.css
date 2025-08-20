@@ -15653,17 +15653,28 @@ html:not(.layout-footer-fixed) .content-wrapper {
   align-items: center;
 }
 
+.app-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* bisa dikurangi biar logo lebih besar */
+}
+
 .app-brand-logo {
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 0;
-  overflow: hidden;
-  min-height: 1px;
+  width: 100%;     /* isi penuh sidebar */
+  height: auto;
+  max-height: 80px; /* batas tinggi biar tidak terlalu besar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.app-brand-logo img,
-.app-brand-logo svg {
-  display: block;
+
+.app-brand-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* menjaga proporsi logo */
 }
+
 
 .app-brand-text {
   flex-shrink: 0;

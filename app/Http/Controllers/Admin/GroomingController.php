@@ -11,7 +11,11 @@ class GroomingController
     // Tampilkan daftar booking grooming
     public function index()
     {
-        $groomings = Grooming::with('user')->latest()->paginate(10);
+        $groomings = Grooming::with('user')
+            ->orderByRaw("CASE WHEN status = 'selesai' THEN 1 ELSE 0 END") // selesai ke bawah
+            ->orderBy('created_at', 'desc') // urutkan berdasarkan tanggal terbaru
+            ->paginate(10);
+
         return view('admin.grooming.index', compact('groomings'));
     }
 

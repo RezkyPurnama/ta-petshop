@@ -1,6 +1,15 @@
 @extends('auth.layouts.main')
 @section('content')
 
+<style>
+    .app-brand {
+  margin-bottom: 5px; /* kecilkan jarak bawah logo */
+}
+h4 {
+  margin-top: 5px; /* kecilkan jarak atas tulisan */
+}
+</style>
+
 <div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y">
     <div class="authentication-inner">
@@ -8,17 +17,18 @@
       <div class="card">
         <div class="card-body">
           <!-- Logo -->
-           <div class="app-brand justify-content-center">
-            <a class="app-brand-link gap-2">
-                <span class="app-brand-logo demo">
-                <img src="{{ asset('admin/assets/img/avatars/logo 2.png') }}" alt="Logo" style="height: 40px;">
-                </span>
-
-            </a>
-         </div>
+           <div class="app-brand justify-content-center mb-1">
+                <a class="app-brand-link gap-2">
+                    <span class="app-brand-logo demo">
+                    <img src="{{ asset('admin/assets/img/avatars/logopetcare2.png') }}"
+                        alt="Logo"
+                        style="height: 80px;">
+                    </span>
+                </a>
+                </div>
           <!-- /Logo -->
 
-          <h4 class="mb-4 text-center">Ayo Melakukan Register Disini</h4>
+          <h4 class="mb-4 text-center">Ayo buat akun baru!</h4>
 
           {{-- 🔴 Notifikasi Error Global --}}
           @if ($errors->any())

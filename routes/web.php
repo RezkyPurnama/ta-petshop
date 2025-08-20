@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\user\GrommingController;
 use App\Http\Controllers\user\KlinikController;
+use App\Http\Controllers\user\KucingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\LoginController;
@@ -83,10 +84,8 @@ Route::get('/product', [ProductKatalogController::class, 'index']);
 Route::get('/detail-produk/{nama_produk}', [DetailController::class, 'detail'])->name('detail-produk');
 
 Route::get('/pet-hotel', [PetHotelController::class, 'index'])->name('pet-hotel.index');
-
-
 Route::get('/grooming', [UserGroomingController::class, 'index'])->name('grooming.index');
-
-
 Route::get('/pet-klinik', [KlinikController::class, 'index'])->name('pet-klinik.index');
+
+Route::get('/cat', [KucingController::class, 'index'])->name('cat.index');
 

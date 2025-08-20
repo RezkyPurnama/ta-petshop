@@ -31,7 +31,7 @@ class ProdukController
             'kode_produk' => 'required|unique:produks,kode_produk',
             'nama_produk' => 'required',
             'harga' => 'required|numeric',
-            'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
         ]);
 
         $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga', 'deskripsi']);

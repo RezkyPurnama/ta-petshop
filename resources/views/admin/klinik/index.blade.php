@@ -31,7 +31,7 @@
             <th>Berat (kg)</th>
             <th>Tanggal Kunjungan</th>
             <th>Keluhan</th>
-            <th width="20%">Status</th>
+            <th width="10%">Status</th>
             <th width="10%">Aksi</th>
           </tr>
         </thead>

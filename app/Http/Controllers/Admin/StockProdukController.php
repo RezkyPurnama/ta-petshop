@@ -15,12 +15,17 @@ class StockProdukController
         return view('admin.stock-produk.index', compact('stock_produk'));
     }
 
-    // Menampilkan form untuk menambah stok produk
     public function create()
     {
-        $produks = Produk::all();
+        // Ambil ID produk yang sudah ada di tabel stock
+        $produkSudahAdaStock = StockProduk::pluck('produk_id')->toArray();
+
+        // Ambil hanya produk yang belum punya stok
+        $produks = Produk::whereNotIn('id', $produkSudahAdaStock)->get();
+
         return view('admin.stock-produk.create', compact('produks'));
     }
+
 
     // Menyimpan data stok produk baru
     public function store(Request $request)

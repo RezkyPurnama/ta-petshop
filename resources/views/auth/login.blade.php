@@ -1,6 +1,12 @@
 @extends('auth.layouts.main')
 @section('content')
 
+
+<style>
+
+</style>
+
+
 <div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y">
     <div class="authentication-inner">
@@ -8,15 +14,18 @@
       <div class="card">
         <div class="card-body">
           <!-- Logo -->
-         <div class="app-brand justify-content-center">
-            <a class="app-brand-link gap-2">
-                <span class="app-brand-logo demo">
-                <img src="{{ asset('admin/assets/img/avatars/logo 2.png') }}" alt="Logo" style="height: 40px;">
-                </span>
+            <div class="app-brand justify-content-center mb-2">
+                <a class="app-brand-link gap-2">
+                    <span class="app-brand-logo demo">
+                    <img src="{{ asset('admin/assets/img/avatars/logopetcare2.png') }}"
+                        alt="Logo"
+                        style="height: 80px;">
+                    </span>
+                </a>
+                </div>
 
-            </a>
-         </div>
-          <h4 class="mb-4 text-center">Welcome to Q PetCare Padang</h4>
+                <h4 class="text-center mb-2">Welcome to Q PetCare</h4>
+
 
 
           {{-- Alert error --}}
