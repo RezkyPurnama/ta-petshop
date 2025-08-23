@@ -26,14 +26,6 @@
 </section>
 <!-- Hero Section End -->  --}}
 
-
-
-
-
-
-
-
-
 <!-- Hero Start -->
 <div class="container-fluid hero-header py-7 mb-5" data-aos="fade-down">
     <div class="container">
@@ -51,7 +43,6 @@
                 <a href="{{ url('product') }}" class="btn btn-dark py-2 px-4 me-3 animated slideInRight">Shop Now</a>
                 <a href="{{ url('https://api.whatsapp.com/send?phone=628116666604&text=Nama%20:%0ANo%20HP%20:%0AAlamat%20:%0AHalo,%20mimin%20saya%20mau%20beli&fbclid=PAZXh0bgNhZW0CMTEAAae8P9Pla9ZD_SpifyEDq2fmI3247l1oYCKpr4vhNBVjLdU4ta1fph78xTA7EQ_aem_wWt83jtuQq5TR_ycCGUFcg') }}"
                 class="btn btn-outline-dark py-2 px-4 animated slideInRight">Contact Us</a>
-
             </div>
 
             <!-- Right Image -->

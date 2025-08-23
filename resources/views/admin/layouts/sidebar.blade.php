@@ -43,6 +43,14 @@
         </a>
     </li>
 
+    <li class="menu-item {{ Request::is('data-pesanan') ? 'active' : '' }}">
+    <a href="/data-pesanan" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-cart-alt"></i>
+        <div data-i18n="Basic">Data Pesanan</div>
+    </a>
+</li>
+
+
     <li class="menu-item {{ Request::is('data-pethotel') ? 'active' : '' }}">
         <a href="/data-pethotel" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-heart"></i>

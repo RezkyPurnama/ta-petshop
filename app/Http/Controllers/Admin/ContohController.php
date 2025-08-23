@@ -10,19 +10,42 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Midtrans\Config;
+use Midtrans\Snap;
 
-class PesananController
+class ContohController
 {
     public function index()
     {
         $userId = Auth::id();
-        $keranjangs = Keranjang::with('produk')
-            ->where('user_id', $userId)
-            ->get();
-
+        // dd($userId);
+        $keranjangs = Keranjang::with('produk')->where('user_id', $userId)->get();
         $total = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
+        // $total = Pesanan::where('user_id', $userId)
+        // ->where('status', 'belum_bayar')
+        // ->latest()->firstOrFail();
+        // dd($total);
 
-        return view('user.cekout.index', compact('keranjangs', 'total'));
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = false;
+        Config::$isSanitized = true;
+        Config::$is3ds = true;
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'TRX-' . strtoupper(uniqid()),
+                'gross_amount' => $total,
+            ],
+            'customer_details' => [
+                'first_name' => Auth::user()->name ?? 'Guest',
+                'email' => Auth::user()->email ?? 'guest@example.com',
+                'phone' => Auth::user()->no_telepon ?? '08123456789',
+            ]
+        ];
+
+        $snapToken = Snap::getSnapToken($params);
+
+        return view('user.cekout.index', compact('keranjangs', 'total', 'snapToken'));
     }
 
     public function store(Request $request)
@@ -36,29 +59,23 @@ class PesananController
         DB::beginTransaction();
         try {
             $userId = Auth::id();
-            $keranjangs = Keranjang::with('produk.stockproduk')
-                ->where('user_id', $userId)
-                ->get();
+            $keranjangs = Keranjang::with('produk.stockproduk')->where('user_id', $userId)->get();
 
             if ($keranjangs->isEmpty()) {
                 return redirect()->route('pesanan.index')->with('error', 'Keranjang anda kosong.');
             }
 
-            // Cek stok
             foreach ($keranjangs as $item) {
                 if ($item->jumlah > $item->produk->stockproduk->stock) {
                     return redirect()->route('pesanan.index')
                         ->with('error', 'Stok tidak cukup untuk ' . $item->produk->nama_produk);
                 }
             }
-
-            // Generate trx_id sesuai format
-            $trx_id = $this->generateTrxId();
-
+            // Buat transaksi ID unik
+            $trx_id = 'TRX-' . strtoupper(uniqid());
             $totalHarga = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
             $jumlahTotal = $keranjangs->sum('jumlah');
 
-            // Simpan pesanan
             $pesanan = Pesanan::create([
                 'user_id' => $userId,
                 'trx_id' => $trx_id,
@@ -67,64 +84,51 @@ class PesananController
                 'telepon' => $request->telepon,
                 'jumlah' => $jumlahTotal,
                 'totalharga' => $totalHarga,
-                'status' => 'tunggu_pembayaran',
-                'status_pembayaran' => 'unpaid',
+                'status' => 'sedang_diproses',
                 'tgl_pesanan' => Carbon::now()->toDateString(),
             ]);
 
-            // Simpan detail pesanan & update stok
             foreach ($keranjangs as $item) {
                 PesananDetail::create([
-                    'pesanan_id'   => $pesanan->id,
-                    'produk_id'    => $item->produk_id,
-                    'jumlah'       => $item->jumlah,
+                    'pesanan_id' => $pesanan->id,
+                    'produk_id' => $item->produk_id,
+                    'jumlah' => $item->jumlah,
                     'harga_satuan' => $item->produk->harga,
-                    'total_harga'  => $item->produk->harga * $item->jumlah,
+                    'total_harga' => $item->produk->harga * $item->jumlah,
                 ]);
 
                 $item->produk->stockproduk->decrement('stock', $item->jumlah);
             }
 
-            // Kosongkan keranjang
             Keranjang::where('user_id', $userId)->delete();
 
             DB::commit();
-
-            return redirect()->route('pembayaran.index', ['pesanan_id' => $pesanan->id]);
+            return redirect()->route('pesanan.index')->with('success', 'Pesanan berhasil dibuat.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('pesanan.index')->with('error', 'Gagal memproses pesanan: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Generate kode transaksi dengan format:
-     * TRX-ddmmyyyyNNN (NNN = nomor urut 3 digit)
-     */
-    private function generateTrxId()
+    public function callback(Request $request)
     {
-        $tanggal = date("dmY");
+        $serverKey = config('midtrans.server_key');
 
-        // ambil nomor urut terakhir untuk hari ini
-        $id = Pesanan::selectRaw('RIGHT(trx_id,3) as id')
-            ->whereDate('tgl_pesanan', Carbon::today())
-            ->orderByRaw('RIGHT(trx_id,3) DESC')
-            ->lockForUpdate()
-            ->limit(1)
-            ->value('id');
+        $hashed = hash(
+            "sha512",
+            $request->order_id .
+                $request->status_code .
+                $request->gross_amount .
+                $serverKey
+        );
 
-        if ($id) {
-            do {
-                $id++;
-                $no = str_pad($id, 3, '0', STR_PAD_LEFT);
-
-                $new_id = "TRX-" . $tanggal . $no;
-                $exists = Pesanan::where('trx_id', $new_id)->exists();
-            } while ($exists);
-
-            return $new_id;
-        } else {
-            return "TRX-" . $tanggal . "001";
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+                $order = Pesanan::find($request->order_id);
+                if ($order) {
+                    $order->update(['status' => 'Paid']);
+                }
+            }
         }
     }
 }

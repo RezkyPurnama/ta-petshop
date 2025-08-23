@@ -216,7 +216,11 @@
 
         <div class="mb-3">
             <label class="form-label">Tipe Room</label>
-            <input type="text" name="tipe_room" class="form-control" placeholder="contoh: VIP / Standard">
+            <select type="text" name="tipe_room" class="form-select">
+                  <option value="">-- Pilih Jenis Hewan --</option>
+                <option value="standar">Standar</option>
+                <option value="vip">VIP</option>
+            </select>
         </div>
 
         <div class="mb-3">

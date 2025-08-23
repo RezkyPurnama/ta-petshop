@@ -20,12 +20,14 @@ use App\Http\Controllers\admin\DataPetHotelController;
 use App\Http\Controllers\user\ProductKatalogController;
 use App\Http\Controllers\admin\DashboardAdminController;
 use App\Http\Controllers\admin\DataKlinikController;
+use App\Http\Controllers\admin\DataPesananController;
 use App\Http\Controllers\Admin\GroomingController;
+use App\Http\Controllers\admin\PembayaranController;
 use App\Http\Controllers\user\PetHotelController;
 use App\Http\Controllers\user\RiwayatPesananController;
 use App\Http\Controllers\user\UserGroomingController;
 
-Route::get('/', [LandingPageContoller::class, 'user']);
+Route::get('/', [LandingPageContoller::class, 'user'])->name('landing');
 
 Route::middleware(['isAdmin'])->group(function () {
     Route::get('/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard');
@@ -36,6 +38,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/data-grooming', GroomingController::class);
     Route::resource('/data-pethotel', DataPetHotelController::class);
     Route::resource('/data-klinik', DataKlinikController::class);
+    Route::resource('/data-pesanan', DataPesananController::class);
 
     // laporan
     Route::get('laporan-klinik/pdf', [DataKlinikController::class, 'laporanPDF'])->name('data-klinik.laporan.pdf');
@@ -54,10 +57,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/checkout', [PesananController::class, 'index'])->name('pesanan.index');
     Route::post('/checkout', [PesananController::class, 'store'])->name('pesanan.store');
-    Route::post('/midtrans-callback', [PesananController::class, 'callback'])->name('pesanan.callback');
+
+    Route::get('/pembayaran/{pesanan_id}', [PembayaranController::class, 'index'])->name('pembayaran.index');
+    Route::post('/pembayaran/{pesanan}/confirm', [PembayaranController::class, 'confirm'])->name('pembayaran.confirm');
+    Route::post('/pembayaran/batal/{pesanan}', [PembayaranController::class, 'batal'])->name('pembayaran.batal');
+    Route::get('/pembayaran/{pesanan}/success', [PembayaranController::class, 'success'])->name('pembayaran.success');
+
+    // Route::post('/midtrans/callback', [PembayaranController::class, 'callback'])->name('midtrans.callback');
+
 
 
     Route::get('/riwayat-pesanan', [RiwayatPesananController::class, 'index'])->name('riwayat.index');
+    Route::get('/riwayat-pesanan/{id}/detail', [RiwayatPesananController::class, 'detail'])->name('riwayat.detail');
 
 
     Route::post('/pet-klinik', [KlinikController::class, 'store'])->name('pet-klinik.store');

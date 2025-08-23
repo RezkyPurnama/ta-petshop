@@ -53,10 +53,10 @@ class KeranjangController
             ]);
         }
 
-        return redirect()->route('keranjang.index')->with('success', 'Produk berhasil ditambahkan ke keranjang');
+        return redirect()->route('landing')->with('success', 'Produk berhasil ditambahkan ke keranjang');
     }
 
-    // Tambah jumlah keranjang
+    // Tambah jumlah keranjang  
     public function updateJumlah(Request $request, $id)
     {
         $keranjang = Keranjang::with('produk.stockproduk')->findOrFail($id);

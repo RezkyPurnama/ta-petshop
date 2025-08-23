@@ -9,16 +9,15 @@ class Pesanan extends Model
     protected $table = 'pesanans'; //
     protected $fillable = [
         'user_id',
-        'produk_id',
-        'tgl_pesanan',
+        'trx_id',
         'nama_penerima',
         'alamat',
         'telepon',
         'jumlah',
         'totalharga',
         'status',
-        'trx_id',
-        'tgl_pesanan'
+        'status_pembayaran',
+        'tgl_pesanan',
     ];
     public function user()
     {
@@ -27,11 +26,11 @@ class Pesanan extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 
     public function pesanandetail()
     {
-        return $this->hasMany(PesananDetail::class);
+        return $this->hasMany(PesananDetail::class, 'pesanan_id');
     }
 }
