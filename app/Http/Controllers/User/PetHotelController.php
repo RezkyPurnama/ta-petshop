@@ -20,11 +20,11 @@ class PetHotelController
     {
         $validated = $request->validate([
             'nama_hewan'     => 'required|string|max:255',
-            'jenis_hewan'    => 'required|string|max:50',
+            'jenis_hewan'      => 'required|in:Anjing,Kucing',
             'riwayat_sakit'  => 'nullable|string',
             'umur_hewan'     => 'nullable|string|max:50',
             'berat_hewan'    => 'nullable|string|max:50',
-            'tipe_room'      => 'required|string|max:50',
+            'tipe_room'      => 'required|in:Standard,Gabung'.'VIP',
             'check_in'       => 'required|date|after_or_equal:today',
             'check_out'      => 'required|date|after_or_equal:check_in',
             'keterangan'     => 'nullable|string',

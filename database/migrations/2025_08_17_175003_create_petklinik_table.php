@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nama_pemilik');
             $table->string('nama_hewan');
-            $table->string('jenis_hewan'); // contoh: Anjing, Kucing, Burung
+            $table->enum('jenis_hewan', ['Anjing', 'Kucing','lainnya']);
+            $table->enum('vaksinasi', ['Ya', 'Tidak']);
             $table->integer('umur_hewan')->nullable();
             $table->string('berat');
             $table->date('tanggal_kunjungan');

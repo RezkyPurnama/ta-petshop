@@ -4,13 +4,39 @@
     <div class="container mt-4">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Daftar Kunjungan Pet Klinik</h4>
-                <a href="{{ route('data-pethotel.laporan.pdf') }}" class="btn btn-primary">
+                <h4>Daftar Kunjungan Pet Hotel</h4>
+                <a href="{{ route('data-pethotel.laporan.pdf', ['bulan' => request('bulan'), 'tahun' => request('tahun')]) }}"
+                    class="btn btn-primary">
                     <i class="bx bx-printer"></i> Cetak Laporan PDF
                 </a>
             </div>
 
             <div class="card-body">
+                {{-- Filter Bulan & Tahun --}}
+                <form action="{{ route('data-pethotel.index') }}" method="GET" class="row g-2 mb-3" id="filterForm">
+                    <div class="col-auto">
+                        <select name="bulan" class="form-select" required
+                            onchange="document.getElementById('filterForm').submit()">
+                            @for ($m = 1; $m <= 12; $m++)
+                                <option value="{{ $m }}" {{ $bulan == $m ? 'selected' : '' }}>
+                                    {{ \Carbon\Carbon::createFromDate(null, $m, 1)->format('F') }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <select name="tahun" class="form-select" required
+                            onchange="document.getElementById('filterForm').submit()">
+                            @for ($y = date('Y') - 5; $y <= date('Y'); $y++)
+                                <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : ''  }}>
+                                    {{ $y }}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                </form>
+
+
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
@@ -29,6 +55,7 @@
                                 <th>Jenis Hewan</th>
                                 <th>Umur Hewan</th>
                                 <th>Berat (kg)</th>
+                                <th>Tipe Ruangan</th>
                                 <th>Check In</th>
                                 <th>Check Out</th>
                                 <th>Keluhan</th>
@@ -46,6 +73,7 @@
                                     <td>{{ $hotel->jenis_hewan }}</td>
                                     <td>{{ $hotel->umur_hewan ?? '-' }}</td>
                                     <td>{{ $hotel->berat_hewan ?? '-' }}</td>
+                                    <td>{{ $hotel->tipe_room ?? '-' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($hotel->check_in)->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($hotel->check_out)->format('d/m/Y') }}</td>
                                     <td>{{ Str::limit($hotel->riwayat_sakit ?? $hotel->keterangan, 20, '...') }}</td>
@@ -116,7 +144,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="11" class="text-center">Tidak ada data kunjungan klinik.</td>
+                                    <td colspan="13" class="text-center">Tidak ada data kunjungan Pet Hotel.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -130,4 +158,22 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('select[name="bulan"], select[name="tahun"]').forEach(el => {
+            el.addEventListener('change', function() {
+                let bulan = document.querySelector('select[name="bulan"]').value;
+                let tahun = document.querySelector('select[name="tahun"]').value;
+
+                fetch(`{{ route('data-pethotel.index') }}?bulan=${bulan}&tahun=${tahun}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        // Update div tabel saja
+                        document.querySelector('.table-responsive').innerHTML =
+                            new DOMParser().parseFromString(html, 'text/html').querySelector(
+                                '.table-responsive').innerHTML;
+                    });
+            });
+        });
+    </script>
+
 @endsection

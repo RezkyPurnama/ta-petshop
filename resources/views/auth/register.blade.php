@@ -87,7 +87,7 @@ h4 {
 
             <div class="mb-3">
               <label for="no_telepon" class="form-label">Nomor Telepon</label>
-              <input type="text"
+              <input type="number"
                      class="form-control @error('no_telepon') is-invalid @enderror"
                      id="no_telepon"
                      name="no_telepon"

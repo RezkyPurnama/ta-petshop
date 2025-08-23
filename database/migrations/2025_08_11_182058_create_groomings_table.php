@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('nama_hewan');
-            $table->string('jenis_hewan'); // Kucing, Anjing, dll
+            $table->enum('jenis_hewan', ['Anjing','Kucing']);
             $table->integer('umur_hewan'); // dalam bulan atau tahun
             $table->decimal('berat_hewan', 5, 2); // kg
             $table->text('riwayat_sakit')->nullable();
-            $table->string('layanan_grooming'); // Basic Grooming, Full Grooming, dll
+            $table->enum('layanan_grooming', ['Basic Grooming', 'Full Grooming']); // Basic Grooming, Full Grooming, dll
             $table->date('tanggal_booking');
             $table->time('jam_booking');
             $table->enum('status', ['booking', 'progres', 'selesai', 'cancel'])->default('booking');

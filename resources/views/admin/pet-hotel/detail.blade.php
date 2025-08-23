@@ -32,6 +32,10 @@
                         <th>Berat Hewan</th>
                         <td>{{ $pethotel->berat_hewan ?? '-' }} kg</td>
                     </tr>
+                     <tr>
+                        <th>Tipe Ruangan</th>
+                        <td>{{ $pethotel->tipe_room ?? '-' }}</td>
+                    </tr>
                     <tr>
                         <th>Check In</th>
                         <td>{{ \Carbon\Carbon::parse($pethotel->check_in)->format('d/m/Y') }}</td>

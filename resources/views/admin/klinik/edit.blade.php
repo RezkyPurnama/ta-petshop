@@ -21,12 +21,27 @@
         </div>
 
         {{-- Jenis Hewan --}}
-        <div class="mb-3">
+       <div class="mb-3">
           <label for="jenis_hewan" class="form-label">Jenis Hewan</label>
-          <input type="text" name="jenis_hewan" id="jenis_hewan"
-            class="form-control @error('jenis_hewan') is-invalid @enderror"
-            value="{{ old('jenis_hewan', $klinik->jenis_hewan) }}" required>
+          <select name="jenis_hewan" id="jenis_hewan" class="form-select @error('jenis_hewan') is-invalid @enderror" required>
+            <option value="">-- Pilih Jenis Hewan --</option>
+            <option value="Kucing" {{ old('jenis_hewan', $klinik->jenis_hewan) == 'Kucing' ? 'selected' : '' }}>Kucing</option>
+            <option value="Anjing" {{ old('jenis_hewan', $klinik->jenis_hewan) == 'Anjing' ? 'selected' : '' }}>Anjing</option>
+            <option value="lainnya" {{ old('jenis_hewan', $klinik->jenis_hewan) == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
+          </select>
           @error('jenis_hewan')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="mb-3">
+          <label for="vaksinasi" class="form-label">Vaksinasi</label>
+          <select name="vaksinasi" id="vaksinasi" class="form-select @error('vaksinasi') is-invalid @enderror" required>
+            <option value="">-- Pilih Vaksinasi --</option>
+            <option value="Ya" {{ old('vaksinasi', $klinik->vaksinasi) == 'Ya' ? 'selected' : '' }}>Ya</option>
+            <option value="Tidak" {{ old('vaksinasi', $klinik->vaksinasi) == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+          </select>
+          @error('vaksinasi')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>
@@ -75,7 +90,7 @@
           @enderror
         </div>
 
-        
+
 
         <a href="{{ route('data-klinik.index') }}" class="btn btn-secondary">Kembali</a>
         <button type="submit" class="btn btn-primary">Perbarui</button>

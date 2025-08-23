@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('nama_hewan');
-            $table->string('jenis_hewan'); // Misalnya: Kucing, Anjing, dll
+            $table->enum('jenis_hewan', ['Anjing', 'Kucing']);
             $table->text('riwayat_sakit')->nullable();
             $table->string('umur_hewan')->nullable();
             $table->string('berat_hewan')->nullable();
-            $table->string('tipe_room')->nullable();
+            $table->enum('tipe_room', ['Standard', 'Gabung','VIP']);
             $table->date('check_in');
             $table->date('check_out');
             $table->text('keterangan')->nullable();

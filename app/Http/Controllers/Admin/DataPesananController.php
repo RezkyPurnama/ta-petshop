@@ -2,21 +2,29 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 
 class DataPesananController
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua pesanan terbaru
-        $pesanans = Pesanan::with('user')->orderBy('tgl_pesanan', 'desc')->paginate(10);
+        $bulan = (int) $request->input('bulan', date('m'));
+        $tahun = (int) $request->input('tahun', date('Y'));
 
-        return view('admin.data-pesanan.index', compact('pesanans'));
+        $pesanans = Pesanan::with('user')
+            ->whereYear('tgl_pesanan', $tahun)
+            ->whereMonth('tgl_pesanan', $bulan)
+            ->orderBy('tgl_pesanan', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.data-pesanan.index', compact('pesanans', 'bulan', 'tahun'));
     }
 
     /**
@@ -64,5 +72,26 @@ class DataPesananController
         $pesanan->delete();
 
         return redirect()->route('data-pesanan.index')->with('success', 'Pesanan berhasil dihapus.');
+    }
+
+    public function laporanPDF(Request $request)
+    {
+        $bulan = (int) $request->input('bulan', date('m'));
+        $tahun = (int) $request->input('tahun', date('Y'));
+
+        // Ambil data pesanan sesuai bulan dan tahun
+        $pesanans = Pesanan::with('user')
+            ->whereYear('tgl_pesanan', $tahun)
+            ->whereMonth('tgl_pesanan', $bulan)
+            ->orderBy('tgl_pesanan', 'desc')
+            ->get();
+
+        $bulanNama = \Carbon\Carbon::parse("$tahun-$bulan-01")->format('F');
+
+        // Generate PDF
+        $pdf = Pdf::loadView('admin.data-pesanan.laporan', compact('pesanans', 'bulanNama', 'tahun'))
+            ->setPaper('A4', 'landscape');
+
+        return $pdf->stream("laporan_pesanan_{$bulanNama}_{$tahun}.pdf");
     }
 }

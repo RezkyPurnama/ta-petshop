@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Carbon\Carbon;
 use App\Models\Klinik;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -11,10 +12,18 @@ class DataKlinikController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $petkliniks = Klinik::with('user')->latest()->paginate(10);
-        return view('admin.klinik.index', compact('petkliniks'));
+        $bulan = (int) $request->input('bulan', date('m'));
+        $tahun = (int) $request->input('tahun', date('Y'));
+
+        $petkliniks = Klinik::with('user')
+            ->whereYear('tanggal_kunjungan', $tahun)
+            ->whereMonth('tanggal_kunjungan', $bulan)
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.klinik.index', compact('petkliniks', 'bulan', 'tahun'));
     }
 
     /**
@@ -80,7 +89,8 @@ class DataKlinikController
         // **2. Update lengkap dari form edit**
         $request->validate([
             'nama_hewan' => 'required|string|max:100',
-            'jenis_hewan' => 'required|string|max:100',
+            'jenis_hewan'      => 'required|in:Anjing,Kucing','lainnya',
+            'vaksinasi'      => 'required|in:Ya,Tidak',
             'umur_hewan' => 'nullable|integer',
             'berat' => 'required|string|max:50',
             'tanggal_kunjungan' => 'required|date',
@@ -90,6 +100,7 @@ class DataKlinikController
         $klinik->update($request->only([
             'nama_hewan',
             'jenis_hewan',
+            'vaksinasi',
             'umur_hewan',
             'berat',
             'tanggal_kunjungan',
@@ -114,18 +125,22 @@ class DataKlinikController
         return redirect()->route('data-klinik.index')->with('success', 'Data klinik berhasil dihapus.');
     }
 
-    public function laporanPDF()
+    public function laporanPDF(Request $request)
     {
-        $petkliniks = Klinik::with('user')->latest()->get();
+        $bulan = (int) $request->input('bulan', date('m'));
+        $tahun = (int) $request->input('tahun', date('Y'));
 
-        // Load view dan generate PDF
-        $pdf = Pdf::loadView('admin.klinik.laporan', compact('petkliniks'))
+        $petkliniks = Klinik::with('user')
+            ->whereYear('tanggal_kunjungan', $tahun)
+            ->whereMonth('tanggal_kunjungan', $bulan)
+            ->latest()
+            ->get();
+
+        $bulanNama = Carbon::parse("$tahun-$bulan-01")->format('F');
+
+        $pdf = Pdf::loadView('admin.klinik.laporan', compact('petkliniks', 'bulanNama', 'tahun'))
             ->setPaper('A4', 'landscape');
-        // ada dua opsi
-        // Download PDF
-        // return $pdf->download('laporan_pet_klinik.pdf');
 
-        // Atau tampil langsung di browser:
-        return $pdf->stream('laporan-klinik.pdf');
+        return $pdf->stream("laporan_PetKlinik_{$bulanNama}_{$tahun}.pdf");
     }
 }

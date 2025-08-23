@@ -17,7 +17,8 @@ class KlinikController
     {
         $request->validate([
             'nama_hewan' => 'required|string|max:100',
-            'jenis_hewan' => 'required|string|max:50',
+            'jenis_hewan'      => 'required|in:Anjing,Kucing','lainnya',
+            'vaksinasi'      => 'required|in:Ya,Tidak',
             'umur_hewan' => 'required|integer',
             'berat' => 'required|numeric',
             'tanggal_kunjungan' => 'required|date|after_or_equal:today',
@@ -30,6 +31,7 @@ class KlinikController
             // 'nomor_telepon' => Auth::user()->phone ?? '-', // ambil dari kolom phone user (kalau ada)
             'nama_hewan' => $request->nama_hewan,
             'jenis_hewan' => $request->jenis_hewan,
+            'vaksinasi' => $request->vaksinasi,
             'umur_hewan' => $request->umur_hewan,
             'berat' => $request->berat,
             'tanggal_kunjungan' => $request->tanggal_kunjungan,

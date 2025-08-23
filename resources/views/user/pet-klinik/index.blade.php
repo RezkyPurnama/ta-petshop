@@ -185,14 +185,24 @@
         <input type="text" name="nama_hewan" class="form-control" required>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Jenis Hewan</label>
-        <select name="jenis_hewan" class="form-select" required>
-            <option value="Kucing">Kucing</option>
-            <option value="Anjing">Anjing</option>
-        </select>
-    </div>
+<div class="mb-3">
+    <label class="form-label">Jenis Hewan</label>
+    <select name="jenis_hewan" class="form-select" required>
+        <option value="">-- Pilih Jenis Hewan --</option>
+        <option value="Kucing" {{ old('jenis_hewan', $grooming->jenis_hewan ?? '') == 'Kucing' ? 'selected' : '' }}>Kucing</option>
+        <option value="Anjing" {{ old('jenis_hewan', $grooming->jenis_hewan ?? '') == 'Anjing' ? 'selected' : '' }}>Anjing</option>
+        <option value="Anjing" {{ old('lainnya', $grooming->jenis_hewan ?? '') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
+    </select>
+</div>
 
+<div class="mb-3">
+    <label class="form-label">Vaksinasi Hewan</label>
+    <select name="vaksinasi" class="form-select" required>
+        <option value="">-- Vaksinasi Hewan --</option>
+        <option value="Ya" {{ old('vaksinasi', $grooming->vaksinasi ?? '') == 'Ya' ? 'selected' : '' }}>Ya</option>
+        <option value="Tidak" {{ old('vaksinasi', $grooming->vaksinasi ?? '') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+    </select>
+</div>
     <div class="mb-3">
         <label class="form-label">Umur Hewan</label>
         <input type="number" name="umur_hewan" class="form-control" required>

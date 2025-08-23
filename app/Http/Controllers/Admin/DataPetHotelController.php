@@ -9,11 +9,22 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class DataPetHotelController
 {
     // Tampilkan daftar pet hotel
-    public function index()
-    {
-        $pethotels = PetHotel::with('user')->latest()->paginate(10);
-        return view('admin.pet-hotel.index', compact('pethotels'));
-    }
+    public function index(Request $request)
+{
+    // Ambil bulan & tahun dari request, default ke bulan & tahun sekarang
+    $bulan = (int) $request->input('bulan', date('m'));
+    $tahun = (int) $request->input('tahun', date('Y'));
+
+    // Query data Pet Hotel berdasarkan bulan & tahun
+    $pethotels = PetHotel::with('user')
+        ->whereYear('check_in', $tahun)
+        ->whereMonth('check_in', $bulan)
+        ->latest()
+        ->paginate(10);
+
+    return view('admin.pet-hotel.index', compact('pethotels', 'bulan', 'tahun'));
+}
+
 
     // Tampilkan halaman edit
     public function edit($id)
@@ -44,9 +55,10 @@ class DataPetHotelController
             // Update full data (dari halaman edit)
             $request->validate([
                 'nama_hewan'    => 'required|string|max:255',
-                'jenis_hewan'   => 'required|string|max:255',
+                'jenis_hewan'      => 'required|in:Anjing,Kucing',
                 'umur_hewan'    => 'nullable|string|max:50',
                 'berat_hewan'   => 'nullable|string|max:10',
+                'tipe_room'      => 'required|in:Standard,Gabung,VIP',
                 'check_in'      => 'required|date',
                 'check_out'     => 'required|date|after_or_equal:check_in',
                 'riwayat_sakit' => 'nullable|string',
@@ -58,6 +70,7 @@ class DataPetHotelController
                 'jenis_hewan',
                 'umur_hewan',
                 'berat_hewan',
+                'tipe_room',
                 'check_in',
                 'check_out',
                 'riwayat_sakit',
@@ -79,18 +92,27 @@ class DataPetHotelController
             ->with('success', 'Data Pet Hotel berhasil dihapus.');
     }
 
-    public function laporanPDF()
+    public function laporanPDF(Request $request)
     {
-        $pethotels = PetHotel::with('user')->latest()->get();
+        // Ambil bulan dan tahun dari request, default ke bulan & tahun sekarang
+        $bulan = (int)  $request->input('bulan', date('m'));
+        $tahun = (int)  $request->input('tahun', date('Y'));
+
+        // Query data Pet Hotel berdasarkan bulan & tahun check_in
+        $pethotels = PetHotel::with('user')
+            ->whereYear('check_in', $tahun)
+            ->whereMonth('check_in', $bulan)
+            ->latest()
+            ->get();
+
+        $bulanNama = \Carbon\Carbon::parse("$tahun-$bulan-01")->format('F');
+
 
         // Load view dan generate PDF
-        $pdf = Pdf::loadView('admin.pet-hotel.laporan', compact('pethotels'))
-        ->setPaper('A4', 'landscape');
-        // ada dua opsi
-        // Download PDF
-        // return $pdf->download('laporan_pet_hotel.pdf');
+        $pdf = Pdf::loadView('admin.pet-hotel.laporan', compact('pethotels', 'bulanNama', 'tahun'))
+            ->setPaper('A4', 'landscape');
 
-        // Atau tampil langsung di browser:
-        return $pdf->stream('laporan-grooming.pdf');
+        // Tampilkan langsung di browser
+        return $pdf->stream("laporan_PetHotel_{$bulanNama}_{$tahun}.pdf");
     }
 }

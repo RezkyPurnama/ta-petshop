@@ -13,6 +13,7 @@ class Klinik extends Model
         'nama_pemilik',
         'nama_hewan',
         'jenis_hewan',
+        'vaksinasi',
         'umur_hewan',
         'berat',
         'tanggal_kunjungan',

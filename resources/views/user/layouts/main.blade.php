@@ -35,7 +35,11 @@
 </head>
 
 <body>
-    
+
+    <style>
+
+    </style>
+
 
     @include('user.layouts.spinner')
     <!-- Navbar Start -->
@@ -43,8 +47,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light p-0 navbar-custom">
                 <a class="navbar-brand d-flex align-items-center gap-2 me-auto">
-                    <h2 class="text- mb-black">Q Petcare</h2>
-                    {{--  <img src="{{ asset('admin/assets/img/avatars/logopetcare2.png') }}" alt="Logo Petcare" style="height:40px;">  --}}
+                    <h2 class="text-start mb-black">Q Petcare</h2>
                 </a>
 
                 <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"

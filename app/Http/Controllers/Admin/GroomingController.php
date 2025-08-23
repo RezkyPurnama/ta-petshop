@@ -9,16 +9,21 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class GroomingController
 {
     // Tampilkan daftar booking grooming
-    public function index()
+    public function index(Request $request)
     {
+        $bulan = (int) $request->input('bulan', date('m'));
+        $tahun = (int) $request->input('tahun', date('Y'));
+
         $groomings = Grooming::with('user')
-            ->orderByRaw("CASE WHEN status = 'selesai' THEN 1 ELSE 0 END") // selesai ke bawah
-            ->orderBy('created_at', 'desc') // urutkan berdasarkan tanggal terbaru
-            ->paginate(10);
+            ->whereYear('tanggal_booking', $tahun)
+            ->whereMonth('tanggal_booking', $bulan)
+            ->orderByRaw("CASE WHEN status = 'selesai' THEN 1 ELSE 0 END")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('admin.grooming.index', compact('groomings'));
+        return view('admin.grooming.index', compact('groomings', 'bulan', 'tahun'));
     }
-
     // Tampilkan halaman edit
     public function edit($id)
     {
@@ -48,11 +53,11 @@ class GroomingController
             // Update semua data (edit form)
             $request->validate([
                 'nama_hewan'       => 'required|string|max:255',
-                'jenis_hewan'      => 'required|string|max:50',
+                'jenis_hewan'      => 'required|in:Anjing,Kucing',
                 'umur_hewan'       => 'required|integer',
                 'berat_hewan'      => 'required|numeric',
                 'riwayat_sakit'    => 'nullable|string',
-                'layanan_grooming' => 'required|string|max:100',
+                'layanan_grooming' => 'required|in:Basic Grooming,Full Grooming',
                 'tanggal_booking'  => 'required|date',
                 'jam_booking'      => 'required',
             ]);
@@ -84,13 +89,22 @@ class GroomingController
     }
 
     // Cetak laporan grooming PDF
-    public function laporanPDF()
+    public function laporanPDF(Request $request)
     {
-        $groomings = Grooming::with('user')->latest()->get();
+        $bulan = (int) $request->input('bulan', date('m'));
+        $tahun = (int) $request->input('tahun', date('Y'));
 
-        $pdf = Pdf::loadView('admin.grooming.laporan', compact('groomings'))
+        $groomings = Grooming::with('user')
+            ->whereYear('tanggal_booking', $tahun)
+            ->whereMonth('tanggal_booking', $bulan)
+            ->latest()
+            ->get();
+
+        $bulanNama = \Carbon\Carbon::parse("$tahun-$bulan-01")->format('F');
+
+        $pdf = Pdf::loadView('admin.grooming.laporan', compact('groomings', 'bulanNama', 'tahun'))
             ->setPaper('A4', 'landscape');
 
-        return $pdf->stream('laporan-grooming.pdf');
+        return $pdf->stream("laporan_grooming_{$bulanNama}_{$tahun}.pdf");
     }
 }

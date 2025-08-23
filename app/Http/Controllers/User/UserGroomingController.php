@@ -20,11 +20,11 @@ class UserGroomingController
         // Validasi input sesuai tabel grooming
         $request->validate([
             'nama_hewan'       => 'required|string|max:255',
-            'jenis_hewan'      => 'required|string|max:100',
+            'jenis_hewan'      => 'required|in:Anjing,Kucing',
             'umur_hewan'       => 'required|numeric|min:0',
             'berat_hewan'      => 'required|numeric|min:0',
             'riwayat_sakit'    => 'nullable|string',
-            'layanan_grooming' => 'required|string|max:255',
+            'layanan_grooming' => 'required|in:Basic Grooming,Full Grooming',
             'tanggal_booking' => 'required|date|after_or_equal:today',
             'jam_booking' => 'required|date_format:H:i|after_or_equal:10:00|before_or_equal:19:00',
         ], [

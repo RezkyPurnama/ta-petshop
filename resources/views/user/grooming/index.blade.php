@@ -234,11 +234,13 @@
                 <label class="form-label">Jenis Hewan</label>
                 <select name="jenis_hewan" class="form-select" required>
                     <option value="">-- Pilih Jenis Hewan --</option>
-                    <option value="Kucing">Kucing</option>
-                    <option value="Anjing">Anjing</option>
-                    <option value="Lainnya">Lainnya</option>
+                    <option value="Kucing"
+                        {{ old('jenis_hewan', $grooming->jenis_hewan ?? '') == 'Kucing' ? 'selected' : '' }}>Kucing</option>
+                    <option value="Anjing"
+                        {{ old('jenis_hewan', $grooming->jenis_hewan ?? '') == 'Anjing' ? 'selected' : '' }}>Anjing</option>
                 </select>
             </div>
+
 
             <div class="mb-3">
                 <label class="form-label">Umur Hewan</label>
@@ -254,16 +256,19 @@
                 <label class="form-label">Riwayat Sakit</label>
                 <textarea name="riwayat_sakit" class="form-control" placeholder="Isi jika ada, boleh dikosongkan"></textarea>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Layanan Grooming</label>
                 <select name="layanan_grooming" class="form-select" required>
                     <option value="">-- Pilih Layanan Grooming --</option>
-                    <option value="Basic Grooming">Basic Grooming</option>
-                    <option value="Full Grooming">Full Grooming</option>
-                    <option value="Premium Grooming">Premium Grooming</option>
+                    <option value="Basic Grooming"
+                        {{ old('layanan_grooming', $grooming->layanan_grooming ?? '') == 'Basic Grooming' ? 'selected' : '' }}>
+                        Basic Grooming</option>
+                    <option value="Full Grooming"
+                        {{ old('layanan_grooming', $grooming->layanan_grooming ?? '') == 'Full Grooming' ? 'selected' : '' }}>
+                        Full Grooming</option>
                 </select>
             </div>
+
 
             <div class="mb-3">
                 <label class="form-label">Tanggal Booking</label>

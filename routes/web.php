@@ -44,6 +44,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('laporan-klinik/pdf', [DataKlinikController::class, 'laporanPDF'])->name('data-klinik.laporan.pdf');
     Route::get('laporan-pethotel/pdf', [DataPetHotelController::class, 'laporanPDF'])->name('data-pethotel.laporan.pdf');
     Route::get('laporan-grooming/pdf', [GroomingController::class, 'laporanPDF'])->name('data-grooming.laporan.pdf');
+    Route::get('laporan-Pesanan/pdf', [DataPesananController::class, 'laporanPDF'])->name('data-pesanan.laporan.pdf');
 });
 
 Route::middleware(['auth'])->group(function () {

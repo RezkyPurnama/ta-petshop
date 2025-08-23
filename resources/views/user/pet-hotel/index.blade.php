@@ -189,39 +189,39 @@
             <label class="form-label">Nama Hewan Peliharaan</label>
             <input type="text" name="nama_hewan" class="form-control" required>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Jenis Hewan</label>
-            <select name="jenis_hewan" class="form-select" required>
-                <option value="">-- Pilih Jenis Hewan --</option>
-                <option value="Kucing">Kucing</option>
-                <option value="Anjing">Anjing</option>
-            </select>
-        </div>
+<div class="mb-3">
+    <label class="form-label">Jenis Hewan</label>
+    <select name="jenis_hewan" class="form-select" required>
+        <option value="">-- Pilih Jenis Hewan --</option>
+        <option value="Kucing" {{ old('jenis_hewan', $pethotels->jenis_hewan ?? '') == 'Kucing' ? 'selected' : '' }}>Kucing</option>
+        <option value="Anjing" {{ old('jenis_hewan', $pethotels->jenis_hewan ?? '') == 'Anjing' ? 'selected' : '' }}>Anjing</option>
+    </select>
+</div>
 
         <div class="mb-3">
             <label class="form-label">Riwayat Sakit</label>
-            <input type="text" name="riwayat_sakit" class="form-control">
+            <textarea type="text"  rows="4" name="riwayat_sakit" class="form-control"></textarea>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Umur Hewan</label>
-            <input type="text" name="umur_hewan" class="form-control" placeholder="contoh: 2 tahun">
+            <input type="number" name="umur_hewan" class="form-control" >
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Berat Hewan</label>
-            <input type="text" name="berat_hewan" class="form-control" placeholder="contoh: 5 kg">
+            <label class="form-label">Berat Hewan (kg)</label>
+            <input type="text" name="berat_hewan" class="form-control" placeholder="dalam bentuk KG">
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tipe Room</label>
-            <select type="text" name="tipe_room" class="form-select">
-                  <option value="">-- Pilih Jenis Hewan --</option>
-                <option value="standar">Standar</option>
-                <option value="vip">VIP</option>
-            </select>
-        </div>
+<div class="mb-3">
+    <label class="form-label">Tipe Ruangan</label>
+    <select name="tipe_room" class="form-select" required>
+        <option value="">-- tipe_room Hewan --</option>
+        <option value="Standard" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'Standard' ? 'selected' : '' }}>Standard</option>
+        <option value="Gabung" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'Gabung' ? 'selected' : '' }}>Gabung</option>
+        <option value="VIP" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'VIP' ? 'selected' : '' }}>VIP</option>
+    </select>
+</div>
 
         <div class="mb-3">
             <label class="form-label">Check-In</label>

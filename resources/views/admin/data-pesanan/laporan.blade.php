@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Kunjungan Pet Hotel</title>
+    <title>Laporan Pesanan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,11 +51,13 @@
             font-weight: 500;
             color: #fff;
         }
-        .booking { background-color: #0d6efd; }
-        .checkin { background-color: #ffc107; color: #000; }
+        .tunggu { background-color: #ffc107; color: #000; }
+        .diproses { background-color: #0d6efd; }
+        .perjalanan { background-color: #0dcaf0; color: #000; }
         .selesai { background-color: #198754; }
         .cancel { background-color: #dc3545; }
-
+        .unpaid { background-color: #ffc107; color: #000; }
+        .paid { background-color: #198754; }
         .footer {
             text-align: center;
             margin-top: 20px;
@@ -70,67 +72,65 @@
 </head>
 <body>
 
-<h2>Laporan Kunjungan Pet Hotel</h2>
+<h2>Laporan Pesanan Bulan {{ $bulanNama }} {{ $tahun }}</h2>
 <p class="print-date">
     Tanggal Cetak: {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('d/m/Y') }}
 </p>
-
 
 <table>
     <thead>
         <tr>
             <th>No</th>
-            <th>Nama Pemilik</th>
-            <th>Nomor Telepon</th>
-            <th>Nama Hewan</th>
-            <th>Jenis Hewan</th>
-            <th>Umur Hewan</th>
-            <th>Berat (kg)</th>
-            <th>Tipe Ruangan</th>
-            <th>Check In</th>
-            <th>Check Out</th>
-            <th>Keterangan</th>
-            <th>Status</th>
+            <th>Nama Pemesan</th>
+            <th>Telepon</th>
+            <th>Nama Penerima</th>
+            <th>Alamat</th>
+            <th>Total Harga</th>
+            <th>Tanggal Pesanan</th>
+            <th>Status Pesanan</th>
+            <th>Status Pembayaran</th>
         </tr>
     </thead>
     <tbody>
-        @forelse ($pethotels as $hotel)
+        @forelse ($pesanans as $item)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td class="text-start">{{ $hotel->user->name }}</td>
-            <td>{{ $hotel->nomor_telepon ?? '-' }}</td>
-            <td class="text-start">{{ $hotel->nama_hewan }}</td>
-            <td>{{ $hotel->jenis_hewan }}</td>
-            <td>{{ $hotel->umur_hewan ?? '-' }}</td>
-            <td>{{ $hotel->berat_hewan ?? '-' }}</td>
-            <td>{{ $hotel->tipe_room ?? '-' }}</td>
-            <td>{{ \Carbon\Carbon::parse($hotel->check_in)->format('d/m/Y') }}</td>
-            <td>{{ \Carbon\Carbon::parse($hotel->check_out)->format('d/m/Y') }}</td>
-            <td class="text-start">{{ $hotel->riwayat_sakit ?? $hotel->keterangan }}</td>
+            <td class="text-start">{{ $item->user->name ?? '-' }}</td>
+            <td>{{ $item->telepon ?? '-' }}</td>
+            <td>{{ $item->nama_penerima }}</td>
+            <td class="text-start">{{ $item->alamat }}</td>
+            <td>Rp {{ number_format($item->totalharga, 0, ',', '.') }}</td>
+            <td>{{ \Carbon\Carbon::parse($item->tgl_pesanan)->format('d/m/Y') }}</td>
             <td>
                 @php
                     $statusClass = [
-                        'booking' => 'badge booking',
-                        'checkin' => 'badge checkin',
-                        'selesai' => 'badge selesai',
-                        'cancel'  => 'badge cancel'
+                        'tunggu_pembayaran' => 'badge tunggu',
+                        'sedang_diproses'   => 'badge diproses',
+                        'dalam_perjalanan'  => 'badge perjalanan',
+                        'selesai'           => 'badge selesai',
+                        'cancel'            => 'badge cancel'
                     ];
                 @endphp
-                <span class="{{ $statusClass[$hotel->status] ?? 'badge bg-secondary' }}">
-                    {{ ucfirst($hotel->status) }}
+                <span class="{{ $statusClass[$item->status] ?? 'badge bg-secondary' }}">
+                    {{ ucfirst(str_replace('_', ' ', $item->status)) }}
+                </span>
+            </td>
+            <td>
+                <span class="badge {{ $item->status_pembayaran }}">
+                    {{ ucfirst($item->status_pembayaran) }}
                 </span>
             </td>
         </tr>
         @empty
         <tr>
-            <td colspan="11">Tidak ada data kunjungan.</td>
+            <td colspan="9">Tidak ada data pesanan.</td>
         </tr>
         @endforelse
     </tbody>
 </table>
 
 <div class="footer">
-    Dicetak pada: {{ now()->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s') }} | Laporan Kunjungan Pet Hotel
+    Dicetak pada: {{ now()->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s') }} | Laporan Pesanan
 </div>
 
 </body>

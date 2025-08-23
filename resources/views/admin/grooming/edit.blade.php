@@ -26,7 +26,6 @@
             <option value="">-- Pilih Jenis Hewan --</option>
             <option value="Kucing" {{ old('jenis_hewan', $grooming->jenis_hewan) == 'Kucing' ? 'selected' : '' }}>Kucing</option>
             <option value="Anjing" {{ old('jenis_hewan', $grooming->jenis_hewan) == 'Anjing' ? 'selected' : '' }}>Anjing</option>
-            <option value="Lainnya" {{ old('jenis_hewan', $grooming->jenis_hewan) == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
           </select>
           @error('jenis_hewan')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -61,15 +60,19 @@
           @enderror
         </div>
 
-        <div class="mb-3">
-          <label for="layanan_grooming" class="form-label">Layanan Grooming</label>
-          <input type="text" name="layanan_grooming" id="layanan_grooming"
-            class="form-control @error('layanan_grooming') is-invalid @enderror"
-            value="{{ old('layanan_grooming', $grooming->layanan_grooming) }}" required>
-          @error('layanan_grooming')
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
+<div class="mb-3">
+    <label for="layanan_grooming" class="form-label">Layanan Grooming</label>
+    <select name="layanan_grooming" id="layanan_grooming"
+        class="form-select @error('layanan_grooming') is-invalid @enderror" required>
+        <option value="">-- Pilih Layanan Grooming --</option>
+        <option value="Basic Grooming" {{ old('layanan_grooming', $grooming->layanan_grooming ?? '') == 'Basic Grooming' ? 'selected' : '' }}>Basic Grooming</option>
+        <option value="Full Grooming" {{ old('layanan_grooming', $grooming->layanan_grooming ?? '') == 'Full Grooming' ? 'selected' : '' }}>Full Grooming</option>
+    </select>
+    @error('layanan_grooming')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
 
         <div class="mb-3">
           <label for="tanggal_booking" class="form-label">Tanggal Booking</label>
