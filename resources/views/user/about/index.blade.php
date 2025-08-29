@@ -26,7 +26,7 @@
                     <div class="icon-wrapper mb-3">
                         <img src="{{ asset('user/assets/img/cat2.png') }}" alt="Pet Health" class="img-fluid" style="max-width: 80px;">
                     </div>
-                    <h5 class="fw-bold text-dark">Pet Health</h5>
+                    <h5 class="fw-bold text-dark">Pet Klinik</h5>
                     <p class="text-muted mb-0">
                         Produk dan panduan terbaik untuk menjaga kesehatan dan kesejahteraan hewan kesayangan Anda.
                     </p>
@@ -71,19 +71,19 @@
             <div class="col-md-6 mb-4 mb-md-0">
                 <h2 class="fw-bold mb-4">Tentang Q Petcare Padang</h2>
                 <p class="text-muted">
-                    PetShop adalah toko hewan peliharaan terlengkap yang telah melayani kebutuhan hewan peliharaan sejak 2010. Kami berkomitmen untuk menyediakan produk berkualitas tinggi dan layanan profesional untuk semua jenis hewan peliharaan.
+                    Q Petcare Padang hadir sejak 20 Januari 2022 sebagai pusat kebutuhan hewan peliharaan di Kota Padang. Berlokasi di Jalan Raya Lubuk Begalung No. 24, Q Petcare Padang tidak hanya menjual makanan, perlengkapan, dan aksesoris hewan, tetapi juga menghadirkan layanan lengkap seperti klinik kesehatan, penginapan, dan Grooming hewan.
                 </p>
                 <p class="text-muted">
-                    Dengan tim yang berpengalaman dan berdedikasi, kami selalu berusaha memberikan pengalaman berbelanja terbaik dan solusi perawatan terbaik untuk hewan kesayangan Anda.
+                    Dengan konsep satu tempat untuk semua kebutuhan hewan peliharaan, lantai pertama difokuskan untuk produk makanan dan aksesoris, sementara lantai kedua menjadi pusat layanan dokter hewan, hotel hewan, hingga grooming.
                 </p>
                 <p class="text-muted">
-                    Visi kami adalah menjadi toko hewan peliharaan terpercaya yang membantu meningkatkan kualitas hidup hewan peliharaan dan memperkuat ikatan antara pemilik dan hewan kesayangannya.
+                    Sejak berdiri, Q Petcare Padang selalu ramai dikunjungi karena kenyamanan tempat, pilihan produk yang beragam, dan layanan yang profesional. Kami berkomitmen untuk selalu memberikan yang terbaik demi kesehatan, kebahagiaan, dan kenyamanan hewan kesayangan Anda.
                 </p>
             </div>
 
             <!-- Gambar -->
             <div class="col-md-6 text-center">
-                <img src="{{ asset('user/assets/img/blog-3.jpg') }}" alt="Tentang PetShop" class="img-fluid rounded-4 shadow-lg">
+                <img src="{{ asset('user/assets/img/Q_petcare_padang.jpg') }}" alt="Tentang PetShop" class="img-fluid rounded-4 shadow-lg">
             </div>
         </div>
     </div>
@@ -124,6 +124,7 @@
                     <p><strong>Pets Shop</strong><br> Senin – Minggu : 09:00 – 21:00</p>
                     <p><strong>Grooming</strong><br> Senin – Minggu : 09:00 – 19:00 WIB</p>
                     <p><strong>Pet Hotel</strong><br> Senin – Minggu : 12:00 – 18:00 WIB</p>
+                    <p><strong>Pet Klinik</strong><br> Senin – Minggu : 11:00 – 21:00 WIB</p>
                 </div>
             </div>
         </div>

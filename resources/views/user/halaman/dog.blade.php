@@ -92,17 +92,19 @@
     <div class="container-fluid bg-primary hero-header py-5 mb-5"></div>
 
 
-    <div class="container mb-5" data-aos="fade-right">
+
+    <!-- Info Card -->
+<div class="container mb-5" data-aos="fade-right">
     <div class="card shadow-lg border-0">
         <div class="row g-0 align-items-center">
             <div class="col-md-4 text-center p-4">
-                <img src="{{ asset('user/assets/img/catdog1.png') }}" class="img-fluid" alt="Makanan Kucing Q Petcare">
+                <img src="{{ asset('user/assets/img/catdog1.png') }}" class="img-fluid" alt="Makanan Anjing Q Petcare">
             </div>
             <div class="col-md-8 p-4">
-                <h4 class="fw-bold">Lengkapi Nutrisi Anabul dengan Makanan Kucing Berkualitas!</h4>
+                <h4 class="fw-bold">Lengkapi Nutrisi Anabul dengan Makanan Anjing Berkualitas!</h4>
                 <p>
-                    Q PetCare menyediakan berbagai pilihan makanan kucing sehat, bergizi, dan disukai anabul.
-                    Yuk, pilih produk terbaik untuk menjaga energi, kesehatan bulu, serta tumbuh kembang kucing kesayangan Anda!
+                    Q PetCare menyediakan berbagai pilihan makanan anjing sehat, bergizi, dan disukai anabul.
+                    Yuk, pilih produk terbaik untuk menjaga energi dan tumbuh kembang anjing kesayangan Anda!
                 </p>
             </div>
         </div>
@@ -110,13 +112,12 @@
 </div>
 
 
-
       <!-- Product Start -->
 <div class="container-fluid py-5" data-aos="fade-up">
     <div class="container">
        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-    <h1 class="text-primary mb-3"><span class="fw-light text-dark">Produk Kucing Terbaik</span> Q Petcare</h1>
-    <p class="mb-5">Kami menyediakan berbagai produk berkualitas untuk kesehatan dan kenyamanan kucing kesayangan Anda.</p>
+    <h1 class="text-primary mb-3"><span class="fw-light text-dark">Produk Anjing Terbaik</span> Q Petcare</h1>
+    <p class="mb-5">Kami menyediakan produk pilihan terbaik untuk anjing kesayangan Anda.</p>
 </div>
 
         <div class="row g-4">
@@ -156,7 +157,5 @@
 <div class="d-flex justify-content-center mt-4">
     {{ $produks->links() }}
 </div>
-
-
 
 @endsection

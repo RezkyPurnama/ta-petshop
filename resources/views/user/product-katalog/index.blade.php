@@ -30,15 +30,7 @@
                 <div class="product-item text-center border h-100 p-4">
                     <img class="img-fluid mb-4" src="{{ asset('storage/' . $produk->gambar_produk) }}" alt="{{ $produk->nama_produk }}" style="height: 120px; width: 100%; object-fit: contain;">
 
-                    <div class="mb-2">
-                        {{-- Bisa tambah rating kalau ada --}}
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small>(100)</small>
-                    </div>
+
                     <a href=""class="h6 d-inline-block mb-2 text-dark"style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px;"> {{ $produk->nama_produk }} </a>
 
                     <h5 class="text-primary mb-3">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h5>
@@ -64,7 +56,10 @@
         </div>
     </div>
 </div>
-<!-- Product End -->
+<div class="d-flex justify-content-center mt-4">
+    {{ $produks->onEachSide(1)->links('pagination::bootstrap-5') }}
+</div>
+
 
 
 @endsection

@@ -25,7 +25,7 @@
     <li class="menu-item {{ Request::is('produk') ? 'active' : '' }}">
         <a href="/produk" class="menu-link">
             <i class="menu-icon tf-icons bx bx-package"></i>
-            <div data-i18n="Basic">Product</div>
+            <div data-i18n="Basic">Produk</div>
         </a>
     </li>
 

@@ -5,13 +5,16 @@ namespace App\Http\Controllers\user;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
-class KucingController
+class DogController
 {
     public function index()
     {
         $produks = Produk::whereHas('kategori', function ($query) {
-            $query->where('nama_kategori', 'cat');
-        })->paginate(10);
-        return view('user.halaman.kucing',compact('produks'));
+            $query->where('nama_kategori', 'dog');
+        })->paginate(10); 
+
+
+
+        return view('user.halaman.dog', compact('produks'));
     }
 }

@@ -173,7 +173,7 @@
 
 
 <div class="container mb-5" data-aos="zoom-in">
-    <h3 class="text-center fw-bold">Form Booking</h3>
+    <h3 class="text-center fw-bold">Form Booking Pet Klinik</h3>
     <hr class="mx-auto" style="width: 60px; border: 2px solid #f1c40f;">
 
 <form id="petKlinikForm" action="{{ route('pet-klinik.store') }}" method="POST" class="mt-4">

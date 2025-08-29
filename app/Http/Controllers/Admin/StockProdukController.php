@@ -12,6 +12,14 @@ class StockProdukController
     public function index()
     {
         $stock_produk = StockProduk::with('produk')->paginate(10);
+
+        // Hitung total data stock produk
+        $totalProduk = StockProduk::count();
+
+        // Jika kurang dari 10, kirimkan notifikasi
+        if ($totalProduk < 10) {
+            session()->flash('warning', 'Stok produk kurang dari 10, segera tambahkan stok baru!');
+        }
         return view('admin.stock-produk.index', compact('stock_produk'));
     }
 

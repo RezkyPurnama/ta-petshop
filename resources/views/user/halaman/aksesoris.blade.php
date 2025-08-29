@@ -92,17 +92,19 @@
     <div class="container-fluid bg-primary hero-header py-5 mb-5"></div>
 
 
-    <div class="container mb-5" data-aos="fade-right">
+
+<div class="container mb-5" data-aos="fade-right">
     <div class="card shadow-lg border-0">
         <div class="row g-0 align-items-center">
             <div class="col-md-4 text-center p-4">
-                <img src="{{ asset('user/assets/img/catdog1.png') }}" class="img-fluid" alt="Makanan Kucing Q Petcare">
+                <img src="{{ asset('user/assets/img/catdog1.png') }}" class="img-fluid" alt="Aksesoris Hewan Q Petcare">
             </div>
             <div class="col-md-8 p-4">
-                <h4 class="fw-bold">Lengkapi Nutrisi Anabul dengan Makanan Kucing Berkualitas!</h4>
+                <h4 class="fw-bold">Percantik & Lengkapi Anabul dengan Aksesoris Lucu!</h4>
                 <p>
-                    Q PetCare menyediakan berbagai pilihan makanan kucing sehat, bergizi, dan disukai anabul.
-                    Yuk, pilih produk terbaik untuk menjaga energi, kesehatan bulu, serta tumbuh kembang kucing kesayangan Anda!
+                    Q PetCare menyediakan berbagai aksesoris hewan peliharaan seperti kalung, baju, mainan,
+                    hingga perlengkapan harian yang nyaman dan aman.
+                    Bikin anabul makin kece dan happy bersama produk pilihan terbaik dari Q PetCare!
                 </p>
             </div>
         </div>
@@ -110,21 +112,28 @@
 </div>
 
 
-
       <!-- Product Start -->
 <div class="container-fluid py-5" data-aos="fade-up">
     <div class="container">
-       <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-    <h1 class="text-primary mb-3"><span class="fw-light text-dark">Produk Kucing Terbaik</span> Q Petcare</h1>
-    <p class="mb-5">Kami menyediakan berbagai produk berkualitas untuk kesehatan dan kenyamanan kucing kesayangan Anda.</p>
-</div>
-
+        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="text-primary mb-3"><span class="fw-light text-dark">Produk Terbaik</span> Q Petcare</h1>
+            <p class="mb-5">Kami menyediakan produk berkualitas untuk hewan kesayangan Anda.</p>
+        </div>
         <div class="row g-4">
             @forelse ($produks as $produk)
             <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.{{ $loop->index + 1 }}s">
                 <div class="product-item text-center border h-100 p-4">
                     <img class="img-fluid mb-4" src="{{ asset('storage/' . $produk->gambar_produk) }}" alt="{{ $produk->nama_produk }}" style="height: 120px; width: 100%; object-fit: contain;">
 
+                    <div class="mb-2">
+                        {{-- Bisa tambah rating kalau ada --}}
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small>(100)</small>
+                    </div>
                     <a href=""class="h6 d-inline-block mb-2 text-dark" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 48px; max-height: 48px; line-height: 24px;"> {{ $produk->nama_produk }}</a>
 
 
@@ -152,11 +161,6 @@
     </div>
 </div>
 <!-- Product End -->
-
-<div class="d-flex justify-content-center mt-4">
-    {{ $produks->links() }}
-</div>
-
 
 
 @endsection

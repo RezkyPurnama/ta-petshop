@@ -7,6 +7,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <!-- Favicon -->
     <link href="{{ asset('admin/assets/img/avatars/logo 2.png') }}" rel="icon">
@@ -44,6 +46,7 @@
     @include('user.layouts.spinner')
     <!-- Navbar Start -->
     <div class="container-fluid sticky-top">
+
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light p-0 navbar-custom">
                 <a class="navbar-brand d-flex align-items-center gap-2 me-auto">
@@ -57,8 +60,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a href="{{ url('/') }}"
-                            class="nav-item nav-link" >Home</a>
+                        <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
 
                         <a href="{{ url('/about') }}"
                             class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">About</a>
@@ -95,7 +97,8 @@
                         @auth
                             {{-- Jika user biasa (role = 0) --}}
                             @if (Auth::user()->isAdmin == 0)
-                                <a href="{{ url(path: '/cart') }}" class="nav-item nav-link position-relative {{ Request::is('cart') ? 'active' : '' }}">
+                                <a href="{{ url(path: '/cart') }}"
+                                    class="nav-item nav-link position-relative {{ Request::is('cart') ? 'active' : '' }}">
                                     <i class="fas fa-shopping-cart me-1"></i>
                                     {{-- Badge jumlah item --}}
                                     @if (isset($cartCount) && $cartCount > 0)
@@ -154,64 +157,65 @@
 
     @yield('content')
 
-<!-- Footer Start -->
-<div class="container-fluid bg-white footer" data-aos="fade-up">
-    <div class="container py-5">
-        <div class="row g-5">
-            <!-- Brand & Deskripsi -->
-            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                <a href="/" class="d-inline-block mb-3">
-                    <h1 class="text-primary">Petcare</h1>
-                </a>
-                <p class="mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet, erat non
-                    malesuada consequat, nibh erat tempus risus, vitae porttitor purus nisl vitae purus.
-                </p>
-            </div>
-
-            <!-- Kontak -->
-            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                <h5 class="mb-4">Get In Touch</h5>
-                <p><i class="fa fa-map-marker-alt me-3"></i>Jalan Raya Tanjung Sabang No.9, Tanjung Saba Pitameh
-                    Nan XX, Kota Padang, Sumatera Barat, Indonesia 25155</p>
-                <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                <div class="d-flex pt-2">
-                    <a class="btn btn-square btn-outline-primary me-2"
-                       href="https://api.whatsapp.com/send?phone=628116666604&text=Halo%20mimin,%20saya%20mau%20beli">
-                       <i class="fab fa-whatsapp"></i>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-white footer" data-aos="fade-up">
+        <div class="container py-5">
+            <div class="row g-5">
+                <!-- Brand & Deskripsi -->
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                    <a href="/" class="d-inline-block mb-3">
+                        <h1 class="text-primary">Petcare</h1>
                     </a>
-                    <a class="btn btn-square btn-outline-primary me-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square btn-outline-primary me-2"
-                       href="https://www.instagram.com/qpetcare_padang"><i class="fab fa-instagram"></i></a>
-                    <a class="btn btn-square btn-outline-primary" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <p class="mb-0">Di Q Petcare, kami merawat hewan peliharaan seperti keluarga. Temukan makanan
+                        bergizi, aksesoris nyaman, dan layanan klinik serta grooming profesional yang menjaga kesehatan
+                        dan keceriaan anabul setiap hari.</p>
+                </div>
+
+                <!-- Kontak -->
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                    <h5 class="mb-4">Get In Touch</h5>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>Jalan Raya Tanjung Sabang No.9, Tanjung Saba Pitameh
+                        Nan XX, Kota Padang, Sumatera Barat, Indonesia 25155</p>
+                    <p><i class="fa fa-phone-alt me-3"></i>+62 811-6666-604</p>
+                    <p><i class="fa fa-envelope me-3"></i>qpetcarepadang@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-square btn-outline-primary me-2"
+                            href="https://api.whatsapp.com/send?phone=628116666604&text=Halo%20mimin,%20saya%20mau%20beli">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a class="btn btn-square btn-outline-primary me-2" href="#"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-outline-primary me-2"
+                            href="https://www.instagram.com/qpetcare_padang"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-square btn-outline-primary" href="#"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Link Populer -->
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
+                    <h5 class="mb-4">Popular Links</h5>
+                    <a class="btn btn-link" href="/about">About Us</a>
+                    <a class="btn btn-link" href="/product">Products</a>
+                    <a class="btn btn-link" href="/grooming">Grooming</a>
+                    <a class="btn btn-link" href="/pet-hotel">Pet Hotel</a>
                 </div>
             </div>
+        </div>
 
-            <!-- Link Populer -->
-            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                <h5 class="mb-4">Popular Links</h5>
-                <a class="btn btn-link" href="/about">About Us</a>
-                <a class="btn btn-link" href="/product">Products</a>
-                <a class="btn btn-link" href="/grooming">Grooming</a>
-                <a class="btn btn-link" href="/pet-hotel">Pet Hotel</a>
+        <!-- Copyright -->
+        <div class="container py-3 border-top">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0 text-muted">
+                        &copy; 2025 <strong>Petcare</strong>. All rights reserved. Powered by
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">QPetcarePadang</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Copyright -->
-    <div class="container py-3 border-top">
-        <div class="row">
-            <div class="col-12 text-center">
-                <p class="mb-0 text-muted">
-                    &copy; 2025 <strong>Petcare</strong>. All rights reserved. Powered by
-                    <a href="#" class="text-primary fw-semibold text-decoration-none">QPetcarePadang</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
+    <!-- Footer End -->
 
     <!-- Footer End -->
 
@@ -234,6 +238,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
     @stack('scripts')
 

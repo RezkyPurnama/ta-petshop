@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use Carbon\Carbon;
-use App\Models\Keranjang;
 use App\Models\Pesanan;
-use App\Models\PesananDetail;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use App\Models\PesananDetail;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class PesananController
 {
@@ -22,8 +23,17 @@ class PesananController
 
         $total = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
 
-        return view('user.cekout.index', compact('keranjangs', 'total'));
+        // Ambil data provinsi dari RajaOngkir
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'key' => config('rajaongkir.api_key'),
+        ])->get('https://rajaongkir.komerce.id/api/v1/destination/province');
+
+        $provinces = $response->successful() ? $response->json()['data'] ?? [] : [];
+
+        return view('user.cekout.index', compact('keranjangs', 'total', 'provinces'));
     }
+
 
     public function store(Request $request)
     {
@@ -125,6 +135,67 @@ class PesananController
             return $new_id;
         } else {
             return "TRX-" . $tanggal . "001";
+        }
+    }
+    // =================== RajaOngkir Methods ===================
+
+    /**
+     * Ambil daftar kota berdasarkan provinceId
+     */
+    public function getCities($provinceId)
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'key' => config('rajaongkir.api_key'),
+        ])->get("https://rajaongkir.komerce.id/api/v1/destination/city/{$provinceId}");
+
+        return response()->json($response->successful() ? $response->json()['data'] ?? [] : []);
+    }
+
+    /**
+     * Ambil daftar kecamatan berdasarkan cityId
+     */
+    public function getDistricts($cityId)
+    {
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'key' => config('rajaongkir.api_key'),
+        ])->get("https://rajaongkir.komerce.id/api/v1/destination/district/{$cityId}");
+
+        return response()->json($response->successful() ? $response->json()['data'] ?? [] : []);
+    }
+    public function checkOngkir(Request $request)
+    {
+        $request->validate([
+            'destination_id' => 'required|integer',
+            'weight'         => 'required|integer|min:1',
+            'courier'        => 'required|string',
+        ]);
+
+        try {
+            $response = Http::asForm()->withHeaders([
+                'Accept' => 'application/json',
+                'key'    => config('rajaongkir.api_key'),
+            ])->post('https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost', [
+                'origin'      => $request->input('origin_id', 4029), // fallback asal
+                'destination' => $request->destination_id,
+                'weight'      => $request->weight,
+                'courier'     => $request->courier,
+            ]);
+
+            if ($response->successful()) {
+                return response()->json([
+                    'status' => true,
+                    'data'   => $response->json()['data'] ?? [],
+                ]);
+            }
+
+            return response()->json(['status' => false, 'data' => []], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Terjadi kesalahan saat menghitung ongkos kirim',
+            ], 500);
         }
     }
 }

@@ -23,6 +23,9 @@ use App\Http\Controllers\admin\DataKlinikController;
 use App\Http\Controllers\admin\DataPesananController;
 use App\Http\Controllers\Admin\GroomingController;
 use App\Http\Controllers\admin\PembayaranController;
+use App\Http\Controllers\admin\RajaOngkirController;
+use App\Http\Controllers\user\AkesesorisController;
+use App\Http\Controllers\user\DogController;
 use App\Http\Controllers\user\PetHotelController;
 use App\Http\Controllers\user\RiwayatPesananController;
 use App\Http\Controllers\user\UserGroomingController;
@@ -92,6 +95,8 @@ Route::get('/user', [LandingPageContoller::class, 'user']);
 
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/product', [ProductKatalogController::class, 'index']);
+Route::get('/product/loadmore', [ProductKatalogController::class, 'loadMore'])->name('product.loadmore');
+
 
 Route::get('/detail-produk/{nama_produk}', [DetailController::class, 'detail'])->name('detail-produk');
 
@@ -100,4 +105,16 @@ Route::get('/grooming', [UserGroomingController::class, 'index'])->name('groomin
 Route::get('/pet-klinik', [KlinikController::class, 'index'])->name('pet-klinik.index');
 
 Route::get('/cat', [KucingController::class, 'index'])->name('cat.index');
+Route::get('/dog', [DogController::class, 'index'])->name('dog.index');
+Route::get('/aksesoris', [AkesesorisController::class, 'index'])->name('aksesoris.index');
 
+
+
+// Route::get('/rajaongkir', [RajaOngkirController::class, 'index']);
+// Route::get('/rajaongkir/cities/{provinceId}', [RajaOngkirController::class, 'getCities']);
+// Route::get('/rajaongkir/districts/{cityId}', [RajaOngkirController::class, 'getDistricts']);
+// Route::post('/rajaongkir/check-ongkir', [RajaOngkirController::class, 'checkOngkir']);
+
+Route::get('/cekout/cities/{provinceId}', [PesananController::class, 'getCities']);
+Route::get('/cekout/districts/{cityId}', [PesananController::class, 'getDistricts']);
+Route::post('/cekout/check-ongkir', [PesananController::class, 'checkOngkir'])->name('cekout.check-ongkir');

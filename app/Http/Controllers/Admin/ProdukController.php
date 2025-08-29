@@ -9,15 +9,23 @@ use Illuminate\Support\Facades\Storage;
 
 class ProdukController
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produks = Produk::with('kategori')
-            ->latest()
-            ->take(10)
-            ->get();
+        $search = $request->input('search');
 
-        return view('admin.produk.index', compact('produks'));
+        $produks = Produk::with('kategori')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_produk', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
+
+        // biar query search tetap ikut ke pagination link
+        $produks->appends(['search' => $search]);
+
+        return view('admin.produk.index', compact('produks', 'search'));
     }
+
 
     public function create()
     {

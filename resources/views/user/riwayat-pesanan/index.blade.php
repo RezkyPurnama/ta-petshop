@@ -85,12 +85,8 @@
                                                 <td>
                                                     <a href="{{ route('riwayat.detail', $pesanan->id) }}"
                                                         class="btn btn-sm btn-outline-secondary">Detail</a>
-                                                    @if ($pesanan->status == 'selesai')
-                                                        <button class="btn btn-sm btn-outline-warning">⭐ Ulasan</button>
-                                                    @elseif($pesanan->status == 'dalam_perjalanan')
-                                                        <button class="btn btn-sm btn-outline-info">🔎 Lacak</button>
-                                                    @endif
                                                 </td>
+
                                             </tr>
                                         @empty
                                             <tr>

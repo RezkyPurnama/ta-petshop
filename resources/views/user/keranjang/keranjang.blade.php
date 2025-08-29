@@ -249,7 +249,7 @@
             <span class="value text-primary fs-5">Rp{{ number_format($total, 0, ',', '.') }}</span>
           </div>
 
-          <a href="{{ url('checkout') }}" class="btn btn-primary w-100 rounded-pill py-2">Lanjut ke Cekout </a>
+          <a href="{{ url('checkout') }}" class="btn btn-primary w-100 rounded-pill py-2">Form Pemesanan </a>
         </div>
       </div>
     </div>

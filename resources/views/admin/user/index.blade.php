@@ -12,7 +12,7 @@
           <th>Email</th>
           <th>Alamat</th>
           <th>No. Telepon</th>
-          <th>Status</th>
+
           <th>Aksi</th>
         </tr>
       </thead>
@@ -22,14 +22,7 @@
           <td>{{ $dataUser->name }}</td>
           <td>{{ $dataUser->email }}</td>
           <td>{{ $dataUser->alamat }}</td>
-          <td>{{ $dataUser->no_telepon }}</td>
-          <td>
-            @if ($dataUser->is_active)
-              <span class="badge bg-label-success">Aktif</span>
-            @else
-              <span class="badge bg-label-secondary">Nonaktif</span>
-            @endif
-          </td>
+          <td>{{ $dataUser->no_telepon }}</td> 
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

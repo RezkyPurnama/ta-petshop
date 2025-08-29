@@ -110,9 +110,13 @@ class PembayaranController
                     'status' => 'sedang_diproses',
                     'status_pembayaran' => 'paid',
                 ]);
+                // Kurangi stok produk
+                foreach ($pesanan->pesanandetail as $item) {
+                    $item->produk->stockproduk->decrement('stock', $item->jumlah);
             }
+        }
         } elseif ($transaction == 'settlement') {
-            $pesanan->update([
+            $pesanan->update([  
                 'status' => 'sedang_diproses',
                 'status_pembayaran' => 'paid',
             ]);

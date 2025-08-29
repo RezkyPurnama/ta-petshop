@@ -131,12 +131,7 @@ h4 {
             </div>
 
             <div class="mb-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                <label class="form-check-label" for="terms-conditions">
-                  I agree to <a href="javascript:void(0);">privacy policy & terms</a>
-                </label>
-              </div>
+          
               @error('terms')
                 <div class="text-danger small">{{ $message }}</div>
               @enderror

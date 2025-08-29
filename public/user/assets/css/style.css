@@ -163,6 +163,15 @@ img.animated.pulse {
 }
 
 
+  .form-control:focus {
+    border-color: #e98205;
+    box-shadow: 0 0 0 0.25rem rgba(248, 163, 57, 0.25);
+  }
+
+   .form-select:focus {
+    border-color: #e98205;
+    box-shadow: 0 0 0 0.25rem rgba(248, 163, 57, 0.25);
+  }
 /* Feature */
 
 .feature-card {

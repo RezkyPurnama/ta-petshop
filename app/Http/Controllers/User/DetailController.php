@@ -15,4 +15,5 @@ class DetailController
 
         return view('user.detail-produk.detail', compact('produk'));
     }
+
 }

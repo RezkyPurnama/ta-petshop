@@ -135,23 +135,22 @@
                             @enderror
                         </div>
 
-                   <!-- Kurir & Berat -->
-<div class="mb-3">
-    <label class="form-label">Pilih Kurir</label>
-    <div class="d-flex gap-3">
-        @foreach (['jne' => 'JNE', 'jnt' => 'J&T'] as $key => $label)
-            <div class="form-check">
-                <input type="radio" name="courier" value="{{ $key }}"
-                    class="form-check-input" {{ old('courier') == $key ? 'checked' : '' }}>
-                <label class="form-check-label">{{ $label }}</label>
-            </div>
-        @endforeach
-    </div>
-    @error('courier')
-        <div class="text-error">{{ $message }}</div>
-    @enderror
-</div>
-
+                        <!-- Kurir & Berat -->
+                        <div class="mb-3">
+                            <label class="form-label">Pilih Kurir</label>
+                            <div class="d-flex gap-3">
+                                @foreach (['sicepat' => 'SICEPAT', 'jnt' => 'J&T', 'jne' => 'JNE'] as $key => $label)
+                                    <div class="form-check">
+                                        <input type="radio" name="courier" value="{{ $key }}"
+                                            class="form-check-input" {{ old('courier') == $key ? 'checked' : '' }}>
+                                        <label class="form-check-label">{{ $label }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @error('courier')
+                                <div class="text-error">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="mb-3">
                             <label for="weight" class="form-label">Berat Produk (gram)</label>
@@ -209,7 +208,7 @@
                                 id="total-text">Rp{{ number_format($total, 0, ',', '.') }}</strong>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Konfirmasi Pesanan</button>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Bayar Sekarang</button>
                     </div>
                 </div>
             </div>

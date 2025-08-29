@@ -295,6 +295,7 @@
                     <p><strong>Pets Shop</strong><br> Senin – Minggu : 09:00 – 21:00</p>
                     <p><strong>Grooming</strong><br> Senin – Minggu : 09:00 – 19:00 WIB</p>
                     <p><strong>Pet Hotel</strong><br> Senin – Minggu : 12:00 – 18:00 WIB</p>
+                    <p><strong>Pet Klinik</strong><br> Senin – Minggu : 11:00 – 21:00 WIB</p>
                 </div>
             </div>
         </div>
