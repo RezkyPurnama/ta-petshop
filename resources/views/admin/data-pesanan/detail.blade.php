@@ -67,12 +67,18 @@
                         </tr>
                         @endforeach
                     </tbody>
-                    <tfoot class="table-light">
-                        <tr>
-                            <td colspan="4" class="text-end"><strong>Total Harga</strong></td>
-                            <td class="text-center">Rp {{ number_format($pesanan->totalharga, 0, ',', '.') }}</td>
-                        </tr>
-                    </tfoot>
+             <tfoot class="table-light">
+
+    <tr>
+        <td colspan="4" class="text-end"><strong>Ongkir</strong></td>
+        <td class="text-center">Rp {{ number_format($pesanan->ongkir, 0, ',', '.') }}</td>
+    </tr>
+    <tr>
+        <td colspan="4" class="text-end"><strong>Total Harga</strong></td>
+        <td class="text-center">Rp {{ number_format($pesanan->totalharga, 0, ',', '.') }}</td>
+    </tr>
+</tfoot>
+
                 </table>
             </div>
 

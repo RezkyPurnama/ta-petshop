@@ -86,6 +86,12 @@
                         @endforeach
                     </tbody>
                     <tfoot>
+                            <tr>
+        <td colspan="3" class="text-end"><strong>Ongkos Kirim</strong></td>
+        <td class="text-end">
+            Rp {{ number_format($pesanan->ongkir ?? 0, 0, ',', '.') }}
+        </td>
+    </tr>
                         <tr>
                             <td colspan="3" class="text-end"><strong>Total Harga</strong></td>
                             <td class="text-end text-success fw-bold fs-5">

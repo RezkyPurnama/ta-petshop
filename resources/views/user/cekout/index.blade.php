@@ -58,7 +58,7 @@
             display: none;
         }
     </style>
-<div class="container-fluid bg-primary hero-header py-5 mb-3"></div>
+    <div class="container-fluid bg-primary hero-header py-5 mb-3"></div>
     <div class="container pb-5">
         <h1 class="text-center mb-5">Checkout</h1>
 
@@ -135,22 +135,22 @@
                             @enderror
                         </div>
 
-                   <!-- Kurir & Berat -->
-<div class="mb-3">
-    <label class="form-label">Pilih Kurir</label>
-    <div class="d-flex gap-3">
-        @foreach (['jne' => 'JNE', 'jnt' => 'J&T'] as $key => $label)
-            <div class="form-check">
-                <input type="radio" name="courier" value="{{ $key }}"
-                    class="form-check-input" {{ old('courier') == $key ? 'checked' : '' }}>
-                <label class="form-check-label">{{ $label }}</label>
-            </div>
-        @endforeach
-    </div>
-    @error('courier')
-        <div class="text-error">{{ $message }}</div>
-    @enderror
-</div>
+                        <!-- Kurir & Berat -->
+                        <div class="mb-3">
+                            <label class="form-label">Pilih Kurir</label>
+                            <div class="d-flex gap-3">
+                                @foreach (['jne' => 'JNE', 'jnt' => 'J&T'] as $key => $label)
+                                    <div class="form-check">
+                                        <input type="radio" name="courier" value="{{ $key }}"
+                                            class="form-check-input" {{ old('courier') == $key ? 'checked' : '' }}>
+                                        <label class="form-check-label">{{ $label }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @error('courier')
+                                <div class="text-error">{{ $message }}</div>
+                            @enderror
+                        </div>
 
 
                         <div class="mb-3">
@@ -169,7 +169,8 @@
                             <div class="loader mt-4" id="loading-indicator" style="display:none"></div>
                         </div>
 
-                        <div class="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-lg results-container" style="display:none">
+                        <div class="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-lg results-container"
+                            style="display:none">
                             <h2 class="text-xl font-semibold text-indigo-800 mb-4 text-center">
                                 Hasil Perhitungan Ongkos Kirim
                             </h2>
@@ -241,7 +242,8 @@
                 if (provinceId) {
                     $.get(`/cekout/cities/${provinceId}`, function(response) {
                         $.each(response, function(index, value) {
-                            $city.append(`<option value="${value.id}">${value.name}</option>`);
+                            $city.append(
+                                `<option value="${value.id}">${value.name}</option>`);
                         });
                         $city.prop('disabled', false);
                     });
@@ -258,7 +260,8 @@
                 if (cityId) {
                     $.get(`/cekout/districts/${cityId}`, function(response) {
                         $.each(response, function(index, value) {
-                            $district.append(`<option value="${value.id}">${value.name}</option>`);
+                            $district.append(
+                                `<option value="${value.id}">${value.name}</option>`);
                         });
                         $district.prop('disabled', false);
                     });
@@ -328,11 +331,13 @@
                     },
                     error: function(xhr) {
                         console.error("Gagal menghitung ongkir:", xhr.responseText);
-                        alert(xhr.responseJSON?.error || 'Terjadi kesalahan saat menghitung ongkir.');
+                        alert(xhr.responseJSON?.error ||
+                            'Terjadi kesalahan saat menghitung ongkir.');
                     },
                     complete: function() {
                         $('#loading-indicator').hide();
-                        $('#btn-check-ongkir').prop('disabled', false).text('Hitung Ongkos Kirim');
+                        $('#btn-check-ongkir').prop('disabled', false).text(
+                            'Hitung Ongkos Kirim');
                         isProcessing = false;
                     }
                 });

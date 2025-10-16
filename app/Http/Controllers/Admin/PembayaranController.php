@@ -34,6 +34,7 @@ class PembayaranController
                 'first_name' => $pesanan->nama_penerima,
                 'phone'      => $pesanan->telepon,
             ],
+            
         ];
 
         // Buat snap token
@@ -116,7 +117,7 @@ class PembayaranController
             }
         }
         } elseif ($transaction == 'settlement') {
-            $pesanan->update([  
+            $pesanan->update([
                 'status' => 'sedang_diproses',
                 'status_pembayaran' => 'paid',
             ]);

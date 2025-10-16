@@ -166,19 +166,24 @@
           </div>
         @endforeach
 
+        <div class="summary-row">
+    <span>Ongkos Kirim</span>
+    <span>Rp{{ number_format($pesanan->ongkir ?? 0, 0, ',', '.') }}</span>
+</div>
         <div class="summary-row total">
           <span>Total</span>
-          <span>Rp{{ number_format($pesanan->totalharga, 0, ',', '.') }}</span>
+          <span>Rp{{ number_format($pesanan->totalharga + ($pesanan->ongkir ?? 0), 0, ',', '.') }}</span>
+
         </div>
 
         <div class="mt-4">
           {{-- Confirm pakai Midtrans --}}
-          <button id="pay-button" class="btn-confirm">✅ Bayar Sekarang</button>
+          <button id="pay-button" class="btn-confirm"> Bayar Sekarang</button>
 
           {{-- Cancel --}}
           <form action="{{ route('pembayaran.batal', $pesanan->id) }}" method="POST">
             @csrf
-            <button type="submit" class="btn-cancel">❌ Cancel Order</button>
+            <button type="submit" class="btn-cancel"> Cancel Order</button>
           </form>
         </div>
       </div>

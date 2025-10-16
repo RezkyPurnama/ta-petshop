@@ -216,10 +216,10 @@
 <div class="mb-3">
     <label class="form-label">Tipe Ruangan</label>
     <select name="tipe_room" class="form-select" required>
-        <option value="">-- tipe_room Hewan --</option>
-        <option value="Standard" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'Standard' ? 'selected' : '' }}>Standard</option>
-        <option value="Gabung" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'Gabung' ? 'selected' : '' }}>Gabung</option>
-        <option value="VIP" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'VIP' ? 'selected' : '' }}>VIP</option>
+        <option value="">-- Tipe Ruangan --</option>
+        <option value="Standard" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'Standard' ? 'selected' : '' }}>Standard -- RP.30.000/Malam</option>
+        <option value="Gabung" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'Gabung' ? 'selected' : '' }}>Gabung-- RP.20.000/Malam</option>
+        <option value="VIP" {{ old('tipe_room', $pethotels->tipe_room ?? '') == 'VIP' ? 'selected' : '' }}>VIP -- RP.60.000/Malam</option>
     </select>
 </div>
 

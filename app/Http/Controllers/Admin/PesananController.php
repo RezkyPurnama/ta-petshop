@@ -20,6 +20,7 @@ class PesananController
         $keranjangs = Keranjang::with('produk')
             ->where('user_id', $userId)
             ->get();
+            
 
         $total = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
 
@@ -76,7 +77,8 @@ class PesananController
                 'alamat' => $request->alamat,
                 'telepon' => $request->telepon,
                 'jumlah' => $jumlahTotal,
-                'totalharga' => $totalHarga,
+                'totalharga' => $totalHarga ,
+                'ongkir' => $request->ongkir, // Tambahkan ini
                 'status' => 'tunggu_pembayaran',
                 'status_pembayaran' => 'unpaid',
                 'tgl_pesanan' => Carbon::now()->toDateString(),

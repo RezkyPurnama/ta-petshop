@@ -129,73 +129,45 @@
     </section>
 
 
-    <section class="premium-services mb-5" data-aos="fade-up">
-        <div class="container text-center">
-            <h2 class="mb-2">Grooming Services</h2>
-            <p class="section-subtitle">
-                Layanan grooming profesional dari Q Petcare dirancang untuk menjaga kebersihan, kesehatan, dan penampilan
-                anabul Anda dengan perawatan penuh kasih sayang.
-            </p>
-            <div class="row g-4 mt-4">
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-droplet"></i></div>
-                        <h5>Refreshing Bath</h5>
-                        <p>Mandi menyegarkan dengan shampoo khusus yang aman dan sesuai jenis bulu anabul Anda.</p>
-                    </div>
+<section class="premium-services mb-5" data-aos="fade-up">
+    <div class="container text-center">
+        <h2 class="mb-2">Grooming Services</h2>
+        <p class="section-subtitle">
+            Layanan grooming profesional dari Q Petcare untuk menjaga kebersihan, kesehatan, dan penampilan
+            anabul Anda dengan penuh kasih sayang.
+        </p>
+        <div class="row g-4 mt-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-droplet"></i></div>
+                    <h5>Refreshing Bath</h5>
+                    <p>Mandi menyegarkan dengan shampoo khusus yang aman dan sesuai jenis bulu anabul Anda.</p>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-scissors"></i></div>
-                        <h5>Hair Trimming</h5>
-                        <p>Potong bulu dengan model rapi dan nyaman, sesuai gaya dan kebutuhan anabul.</p>
-                    </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-scissors"></i></div>
+                    <h5>Hair Trimming</h5>
+                    <p>Potong bulu dengan model rapi dan nyaman, sesuai gaya dan kebutuhan anabul.</p>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-hand-thumbs-up"></i></div>
-                        <h5>Nail Clipping</h5>
-                        <p>Pemangkasan kuku aman untuk mencegah cedera dan menjaga kesehatan kaki anabul.</p>
-                    </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-brush"></i></div>
+                    <h5>Styling</h5>
+                    <p>Grooming dengan gaya sesuai request agar anabul tampil menawan & unik.</p>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-stars"></i></div>
-                        <h5>Fur Brushing</h5>
-                        <p>Penyisiran bulu untuk mengurangi rontok dan membuat bulu lebih sehat & berkilau.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-heart-pulse"></i></div>
-                        <h5>Skin Care</h5>
-                        <p>Perawatan kulit dengan produk alami untuk mencegah iritasi dan menjaga kelembapan.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-wind"></i></div>
-                        <h5>Blow Dry</h5>
-                        <p>Mengeringkan bulu dengan suhu aman untuk menjaga kelembutan dan kesehatan bulu.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-brush"></i></div>
-                        <h5>Styling</h5>
-                        <p>Gaya grooming sesuai request untuk membuat anabul tampil menawan dan unik.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="bi bi-camera"></i></div>
-                        <h5>Before & After Photos</h5>
-                        <p>Dokumentasi foto hasil grooming sebagai kenang-kenangan untuk Anda.</p>
-                    </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-heart"></i></div>
+                    <h5>Nail & Paw Care</h5>
+                    <p>Perawatan kuku dan kaki agar tetap bersih, sehat, dan nyaman untuk anabul Anda.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
     <!-- Info Card -->
@@ -262,10 +234,10 @@
                     <option value="">-- Pilih Layanan Grooming --</option>
                     <option value="Basic Grooming"
                         {{ old('layanan_grooming', $grooming->layanan_grooming ?? '') == 'Basic Grooming' ? 'selected' : '' }}>
-                        Basic Grooming</option>
+                        Basic Grooming -- Rp.50.000</option>
                     <option value="Full Grooming"
                         {{ old('layanan_grooming', $grooming->layanan_grooming ?? '') == 'Full Grooming' ? 'selected' : '' }}>
-                        Full Grooming</option>
+                        Full Grooming -- Rp.80.000</option>
                 </select>
             </div>
 

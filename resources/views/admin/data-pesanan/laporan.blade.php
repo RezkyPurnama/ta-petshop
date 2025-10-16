@@ -86,6 +86,7 @@
             <th>Nama Penerima</th>
             <th>Alamat</th>
             <th>Total Harga</th>
+            <th>Ongkir</th> <!-- Kolom Ongkir -->
             <th>Tanggal Pesanan</th>
             <th>Status Pesanan</th>
             <th>Status Pembayaran</th>
@@ -100,6 +101,7 @@
             <td>{{ $item->nama_penerima }}</td>
             <td class="text-start">{{ $item->alamat }}</td>
             <td>Rp {{ number_format($item->totalharga, 0, ',', '.') }}</td>
+            <td>Rp {{ number_format($item->ongkir, 0, ',', '.') }}</td> <!-- Tampilkan Ongkir -->
             <td>{{ \Carbon\Carbon::parse($item->tgl_pesanan)->format('d/m/Y') }}</td>
             <td>
                 @php
@@ -123,7 +125,7 @@
         </tr>
         @empty
         <tr>
-            <td colspan="9">Tidak ada data pesanan.</td>
+            <td colspan="10">Tidak ada data pesanan.</td> <!-- colspan disesuaikan -->
         </tr>
         @endforelse
     </tbody>

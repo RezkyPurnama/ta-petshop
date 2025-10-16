@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('telepon'); // Nomor telepon
             $table->integer('jumlah')->default(1); // Jumlah produk
             $table->decimal('totalharga', 10, 2); // Total harga pesanan
+            $table->decimal('ongkir', 10, 2)->default(0);
             $table->enum('status', ['tunggu_pembayaran ','sedang_diproses', 'dalam_perjalanan', 'selesai', 'cancel'])->default('tunggu_pembayaran');
             $table->enum('status_pembayaran', ['unpaid', 'paid', 'cancel'])->default('unpaid');
             $table->date('tgl_pesanan'); // Tanggal pesanan
