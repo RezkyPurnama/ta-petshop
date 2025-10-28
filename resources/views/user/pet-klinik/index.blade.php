@@ -219,6 +219,11 @@
     </div>
 
     <div class="mb-3">
+        <label class="form-label">Waktu Kunjungan</label>
+        <input type="time" name="waktu_kunjungan" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
         <label class="form-label">Keluhan Anabul</label>
         <textarea name="keluhan" rows="4" class="form-control" required></textarea>
     </div>
@@ -262,7 +267,19 @@
     });
 </script>
 @endif
+
+@if($errors->any())
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal Booking!',
+        html: `{!! implode('<br>', $errors->all()) !!}`,
+        confirmButtonText: 'OK',
+    });
+</script>
+@endif
 @endpush
+
 
 
 @endsection

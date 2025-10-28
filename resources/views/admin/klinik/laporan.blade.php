@@ -108,6 +108,7 @@
                 <th>Umur Hewan</th>
                 <th>Berat (kg)</th>
                 <th>Tanggal Kunjungan</th>
+                <th>Waktu Kunjungan</th>
                 <th>Keluhan</th>
                 <th>Status</th>
             </tr>
@@ -122,6 +123,7 @@
                 <td>{{ $klinik->umur_hewan ?? '-' }}</td>
                 <td>{{ $klinik->berat }}</td>
                 <td>{{ \Carbon\Carbon::parse($klinik->tanggal_kunjungan)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::createFromFormat('H:i:s', $klinik->waktu_kunjungan)->format('H.i') }}</td>
                 <td class="text-start">{{ Str::limit($klinik->keluhan, 50, '...') }}</td>
                 <td>
                     @php
@@ -146,7 +148,7 @@
     </table>
 
  <div class="footer">
-    Dicetak pada: {{ now()->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s') }} | Laporan Kunjungan Pet Hotel
+    Dicetak pada: {{ now()->setTimezone('Asia/Jakarta')->format('d-m-Y H:i:s') }} | Laporan Kunjungan Pet Klinik
 </div>
 
 </body>

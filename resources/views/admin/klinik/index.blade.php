@@ -56,6 +56,7 @@
               <th>Umur Hewan</th>
               <th>Berat (kg)</th>
               <th>Tanggal Kunjungan</th>
+              <th>Waktu Kunjungan</th>
               <th>Keluhan</th>
               <th width="10%">Status</th>
               <th width="10%">Aksi</th>
@@ -73,6 +74,7 @@
               <td>{{ $klinik->umur_hewan ?? '-' }}</td>
               <td>{{ $klinik->berat ?? '-' }}</td>
               <td>{{ \Carbon\Carbon::parse($klinik->tanggal_kunjungan)->format('d/m/Y') }}</td>
+              <td>{{ \Carbon\Carbon::createFromFormat('H:i:s', $klinik->waktu_kunjungan)->format('H.i') }}</td>
               <td>{{ Str::limit($klinik->keluhan, 20, '...') }}</td>
               <td>
                 @php

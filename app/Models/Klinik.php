@@ -17,6 +17,7 @@ class Klinik extends Model
         'umur_hewan',
         'berat',
         'tanggal_kunjungan',
+        'waktu_kunjungan',
         'keluhan',
         'status'
     ];

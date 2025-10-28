@@ -94,6 +94,7 @@ class DataKlinikController
             'umur_hewan' => 'nullable|integer',
             'berat' => 'required|string|max:50',
             'tanggal_kunjungan' => 'required|date',
+            'waktu_kunjungan' => 'required|date_format:H:i',
             'keluhan' => 'required|string',
         ]);
 
@@ -104,6 +105,7 @@ class DataKlinikController
             'umur_hewan',
             'berat',
             'tanggal_kunjungan',
+            'waktu_kunjungan',
             'keluhan'
         ]));
 

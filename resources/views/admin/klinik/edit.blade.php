@@ -79,6 +79,17 @@
           @enderror
         </div>
 
+             {{-- Waktu Kunjungan --}}
+        <div class="mb-3">
+          <label for="waktu_kunjungan" class="form-label">Waktu Kunjungan</label>
+          <input type="time" name="waktu_kunjungan" id="waktu_kunjungan"
+            class="form-control @error('waktu_kunjungan') is-invalid @enderror"
+            value="{{ old('waktu_kunjungan', $klinik->waktu_kunjungan) }}" required>
+          @error('waktu_kunjungan')
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+
         {{-- Keluhan --}}
         <div class="mb-3">
           <label for="keluhan" class="form-label">Keluhan</label>

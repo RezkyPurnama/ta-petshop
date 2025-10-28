@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('umur_hewan')->nullable();
             $table->string('berat');
             $table->date('tanggal_kunjungan');
+            $table->time('waktu_kunjungan');
             $table->enum('status', ['booking', 'progres', 'selesai','cancel'])->default('booking');
             $table->text('keluhan');
             $table->timestamps();
