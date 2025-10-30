@@ -24,11 +24,27 @@ class PetHotelController
             'riwayat_sakit'  => 'nullable|string',
             'umur_hewan'     => 'nullable|string|max:50',
             'berat_hewan'    => 'nullable|string|max:50',
-            'tipe_room'      => 'required|in:Standard,Gabung'.'VIP',
+            'tipe_room'      => 'required|in:Standard,Gabung,VIP',
             'check_in'       => 'required|date|after_or_equal:today',
             'check_out'      => 'required|date|after_or_equal:check_in',
             'keterangan'     => 'nullable|string',
         ]);
+
+        // Tentukan kapasitas tiap tipe room
+        $kapasitas = [
+            'Standard' => 5,
+            'Gabung'   => 10,
+            'VIP'      => 2,
+        ];
+
+        // Hitung berapa hewan yang sedang menginap di tipe room tersebut pada tanggal yang sama
+        $jumlahTerisi = PetHotel::where('tipe_room', $request->tipe_room)
+            ->whereDate('check_out', '>=', now()) // hanya hitung yang masih menginap
+            ->count();
+
+        if ($jumlahTerisi >= $kapasitas[$request->tipe_room]) {
+            return redirect()->back()->with('error', 'Maaf, kamar ' . $request->tipe_room . ' sudah penuh.');
+        }
 
         // Tambahkan user_id secara otomatis
         PetHotel::create([

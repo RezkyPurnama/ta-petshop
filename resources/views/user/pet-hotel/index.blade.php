@@ -289,6 +289,17 @@
     });
 </script>
 @endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal!',
+        text: '{{ session("error") }}',
+        showConfirmButton: true,
+    });
+</script>
+@endif
 @endpush
 
 
