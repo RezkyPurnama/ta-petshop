@@ -314,43 +314,54 @@
                         $('.results-container').hide();
                     },
                     success: function(response) {
-                        $('#results-ongkir').empty();
+                $('#results-ongkir').empty();
 
-                        if (response.status && response.data.length > 0) {
-                            $('.results-container').show();
+                if (response.status && response.data.length > 0) {
+                    $('.results-container').show();
 
-                            let ongkirTotal = response.data[0].cost;
+                    // === DIUBAH ===
+                    // tampilkan semua opsi ongkir dengan radio button
+                    $.each(response.data, function(index, value) {
+                        $('#results-ongkir').append(`
+                            <div class="flex justify-between items-center p-3 bg-white rounded-xl shadow border border-gray-200">
+                                <label class="flex justify-between items-center w-full cursor-pointer">
+                                    <span class="text-lg font-medium text-gray-800">${value.service} - ${value.description} (${value.etd})</span>
+                                    <span class="text-lg font-bold text-indigo-700">${formatCurrency(value.cost)}</span>
+                                    <input type="radio" name="selected_ongkir" value="${value.cost}" class="ml-3">
+                                </label>
+                            </div>
+                        `);
+                    });
 
-                            $.each(response.data, function(index, value) {
-                                $('#results-ongkir').append(`
-                                    <div class="flex justify-between items-center p-3 bg-white rounded-xl shadow border border-gray-200">
-                                        <span class="text-lg font-medium text-gray-800">${value.service} - ${value.description} (${value.etd})</span>
-                                        <span class="text-lg font-bold text-indigo-700">${formatCurrency(value.cost)}</span>
-                                    </div>
-                                `);
-                            });
 
-                            $('#ongkir-text').text(formatCurrency(ongkirTotal));
-                            let subtotal = {{ $total }};
-                            $('#total-text').text(formatCurrency(subtotal + ongkirTotal));
-                            $('#ongkir').val(ongkirTotal);
-                        } else {
-                            alert(response.message || 'Tidak ada ongkir tersedia');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.error("Gagal menghitung ongkir:", xhr.responseText);
-                        alert(xhr.responseJSON?.error ||
-                            'Terjadi kesalahan saat menghitung ongkir.');
-                    },
-                    complete: function() {
-                        $('#loading-indicator').hide();
-                        $('#btn-check-ongkir').prop('disabled', false).text(
-                            'Hitung Ongkos Kirim');
-                        isProcessing = false;
-                    }
-                });
-            });
+                    $('input[name="selected_ongkir"]').on('change', function() {
+                        let ongkirTerpilih = parseInt($(this).val());
+                        $('#ongkir-text').text(formatCurrency(ongkirTerpilih));
+
+                        let subtotal = {{ $total }};
+                        $('#total-text').text(formatCurrency(subtotal + ongkirTerpilih));
+                        $('#ongkir').val(ongkirTerpilih);
+                    });
+
+
+                    $('input[name="selected_ongkir"]:first').prop('checked', true).trigger('change');
+
+
+                } else {
+                    alert(response.message || 'Tidak ada ongkir tersedia');
+                }
+            },
+            error: function(xhr) {
+                console.error("Gagal menghitung ongkir:", xhr.responseText);
+                alert(xhr.responseJSON?.error || 'Terjadi kesalahan saat menghitung ongkir.');
+            },
+            complete: function() {
+                $('#loading-indicator').hide();
+                $('#btn-check-ongkir').prop('disabled', false).text('Hitung Ongkos Kirim');
+                isProcessing = false;
+            }
         });
-    </script>
+    });
+});
+</script>
 @endsection
