@@ -34,6 +34,15 @@ class UserGroomingController
             'jam_booking.before_or_equal' => 'Jam booking maksimal pukul 19:00.',
         ]);
 
+        // Cek jumlah booking pada tanggal dan jam yang sama
+        $jumlahBooking = Grooming::where('tanggal_booking', $request->tanggal_booking)
+            ->where('jam_booking', $request->jam_booking)
+            ->count();
+
+        if ($jumlahBooking >= 3) {
+            return redirect()->back()->with('error', 'Kuota grooming untuk jam ini sudah penuh, Silahkan booking pada jam berikutnya.');
+        }
+
         // Simpan data ke database dengan user_id & status default booking
         Grooming::create([
             'user_id'          => Auth::id(),

@@ -204,13 +204,13 @@
     </select>
 </div>
     <div class="mb-3">
-        <label class="form-label">Umur Hewan</label>
-        <input type="number" name="umur_hewan" class="form-control" required>
+        <label class="form-label">Umur Hewan (Tahun)</label>
+        <input type="number" name="umur_hewan" placeholder="Contoh : 2" class="form-control" required>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Berat Hewan</label>
-        <input type="number" step="0.01" name="berat" class="form-control" required>
+        <label class="form-label">Berat Hewan (kg)</label>
+        <input type="number" step="0.01" name="berat" placeholder="kg" class="form-control" required>
     </div>
 
     <div class="mb-3">

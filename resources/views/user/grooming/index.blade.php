@@ -215,18 +215,19 @@
 
 
             <div class="mb-3">
-                <label class="form-label">Umur Hewan</label>
-                <input type="number" name="umur_hewan" class="form-control" placeholder="dalam tahun" required>
+                <label class="form-label">Umur Hewan (tahun)</label>
+                <input type="number" name="umur_hewan" class="form-control" placeholder="Contoh : 8" required>
+
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Berat Hewan (kg)</label>
-                <input type="number" step="0.01" name="berat_hewan" class="form-control" required>
+                <input type="number" step="0.01" name="berat_hewan" class="form-control" placeholder="kg" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Riwayat Sakit</label>
-                <textarea name="riwayat_sakit" class="form-control" placeholder="Isi jika ada, boleh dikosongkan"></textarea>
+                <textarea name="riwayat_sakit" class="form-control" ></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">Layanan Grooming</label>
@@ -262,38 +263,48 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        // Konfirmasi sebelum submit
-        document.getElementById("bookingForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+<script>
+    // Konfirmasi sebelum submit
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+        event.preventDefault();
 
-            Swal.fire({
-                title: "Konfirmasi Booking",
-                text: "Apakah Anda yakin ingin mengirim booking grooming?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ya, Kirim!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit();
-                }
-            });
+        Swal.fire({
+            title: "Konfirmasi Booking",
+            text: "Apakah Anda yakin ingin mengirim booking grooming?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Kirim!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit();
+            }
         });
-    </script>
+    });
 
+    // Notifikasi success
     @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        </script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
     @endif
+
+    // Notifikasi error kuota penuh
+    @if (session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ session('error') }}',
+            showConfirmButton: true
+        });
+    @endif
+</script>
 @endpush
+

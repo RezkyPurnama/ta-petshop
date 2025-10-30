@@ -68,7 +68,7 @@
                             <td>{{ $grooming->nama_hewan }}</td>
                             <td>{{ $grooming->jenis_hewan }}</td>
                             <td>{{ $grooming->umur_hewan ?? '-' }}</td>
-                            <td>{{ $grooming->berat_hewan ?? '-' }}</td>
+                           <td>{{ $grooming->berat_hewan ? number_format($grooming->berat_hewan, 2, '.', '') : '-' }} kg</td>
                             <td>{{ $grooming->layanan_grooming }}</td>
                             <td>{{ \Carbon\Carbon::parse($grooming->tanggal_booking)->format('d/m/Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($grooming->jam_booking)->format('H:i') }}</td>
