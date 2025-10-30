@@ -39,10 +39,11 @@ class ProdukController
             'kode_produk' => 'required|unique:produks,kode_produk',
             'nama_produk' => 'required',
             'harga' => 'required|numeric',
+            'berat' => 'required|integer|min:1',
             'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
         ]);
 
-        $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga', 'deskripsi']);
+        $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga', 'berat', 'deskripsi']);
 
         if ($request->hasFile('gambar_produk')) {
             $data['gambar_produk'] = $request->file('gambar_produk')->store('gambar_produk', 'public');
@@ -68,10 +69,11 @@ class ProdukController
             'kode_produk' => 'required|unique:produks,kode_produk,' . $produk->id,
             'nama_produk' => 'required',
             'harga' => 'required|numeric',
+            'berat' => 'required|integer|min:1',
             'gambar_produk' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga', 'deskripsi']);
+        $data = $request->only(['kategori_id', 'kode_produk', 'nama_produk', 'harga','berat', 'deskripsi']);
 
         // Hapus gambar lama jika ada dan upload baru
         if ($request->hasFile('gambar_produk')) {

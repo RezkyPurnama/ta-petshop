@@ -50,18 +50,20 @@
                             <th>Nama Produk</th>
                             <th>Kategori</th>
                             <th>Harga</th>
+                            <th>Berat</th>
                             <th>Gambar</th>
                             <th width="10%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($produks as $produk)
-                            <tr>
+                            <tr class="text-center">
                                 <td>{{ $loop->iteration + $produks->firstItem() - 1 }}</td>
                                 <td>{{ $produk->kode_produk }}</td>
                                 <td>{{ $produk->nama_produk }}</td>
                                 <td>{{ $produk->kategori?->nama_kategori ?? '-' }}</td>
                                 <td>Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
+                                <td>{{ $produk->berat }} gr</td>
                                 <td class="text-center">
                                     @if ($produk->gambar_produk)
                                         <img src="{{ asset('storage/' . $produk->gambar_produk) }}" width="60"

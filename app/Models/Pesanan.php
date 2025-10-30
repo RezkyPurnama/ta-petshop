@@ -15,6 +15,7 @@ class Pesanan extends Model
         'telepon',
         'jumlah',
         'totalharga',
+        'total_berat',
         'ongkir',
         'status',
         'status_pembayaran',

@@ -20,9 +20,11 @@ class PesananController
         $keranjangs = Keranjang::with('produk')
             ->where('user_id', $userId)
             ->get();
-            
+
 
         $total = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
+
+        $totalBerat = $keranjangs->sum(fn($k) => ($k->berat ?? 0) * $k->jumlah);
 
         // Ambil data provinsi dari RajaOngkir
         $response = Http::withHeaders([
@@ -32,7 +34,22 @@ class PesananController
 
         $provinces = $response->successful() ? $response->json()['data'] ?? [] : [];
 
-        return view('user.cekout.index', compact('keranjangs', 'total', 'provinces'));
+
+        // Tambahkan daftar kurir yang umum digunakan
+        $couriers = [
+            'jne'       => 'JNE',
+            'tiki'      => 'TIKI',
+            'pos'       => 'POS Indonesia',
+            'jnt'       => 'J&T Express',
+            'sicepat'   => 'SiCepat',
+            'wahana'    => 'Wahana',
+            'lion'      => 'Lion Parcel',
+            'ninja'     => 'Ninja Xpress',
+            'idexpress' => 'ID Express',
+            'anteraja'  => 'AnterAja',
+        ];
+
+        return view('user.cekout.index', compact('keranjangs', 'total', 'totalBerat', 'provinces', 'couriers'));
     }
 
 
@@ -42,6 +59,7 @@ class PesananController
             'nama_penerima' => 'required|string|max:255',
             'alamat' => 'required|string',
             'telepon' => 'required|string|max:20',
+
         ]);
 
         DB::beginTransaction();
@@ -68,6 +86,7 @@ class PesananController
 
             $totalHarga = $keranjangs->sum(fn($k) => $k->produk->harga * $k->jumlah);
             $jumlahTotal = $keranjangs->sum('jumlah');
+            $totalBerat = $keranjangs->sum(fn($k) => ($k->berat ?? 0) * $k->jumlah);
 
             // Simpan pesanan
             $pesanan = Pesanan::create([
@@ -78,11 +97,13 @@ class PesananController
                 'telepon' => $request->telepon,
                 'jumlah' => $jumlahTotal,
                 'totalharga' => $totalHarga ,
+                'total_berat'   => $totalBerat,
                 'ongkir' => $request->ongkir, // Tambahkan ini
                 'status' => 'tunggu_pembayaran',
                 'status_pembayaran' => 'unpaid',
                 'tgl_pesanan' => Carbon::now()->toDateString(),
             ]);
+            // dd($pesanan);
 
             // Simpan detail pesanan & update stok
             foreach ($keranjangs as $item) {

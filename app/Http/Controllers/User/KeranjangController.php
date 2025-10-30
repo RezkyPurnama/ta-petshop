@@ -33,7 +33,9 @@ class KeranjangController
         ]);
 
         $produk = Produk::findOrFail($request->produk_id);
-        $totalHarga = $produk->harga * $request->jumlah;
+        $jumlah = $request->jumlah;
+        $totalHarga = $produk->harga * $jumlah;
+        $totalBerat = ($produk->berat ?? 0) * $jumlah;
 
         // Cek jika produk sudah ada di keranjang
         $keranjang = Keranjang::where('user_id', Auth::id())
@@ -41,8 +43,9 @@ class KeranjangController
             ->first();
 
         if ($keranjang) {
-            $keranjang->jumlah += $request->jumlah;
+            $keranjang->jumlah += $jumlah;
             $keranjang->totalharga += $totalHarga;
+            $keranjang->total_berat += $totalBerat; // ✅ update total berat
             $keranjang->save();
         } else {
             Keranjang::create([
@@ -50,6 +53,8 @@ class KeranjangController
                 'produk_id' => $produk->id,
                 'jumlah' => $request->jumlah,
                 'totalharga' => $totalHarga,
+                'berat' => $produk->berat ?? 0,   // ✅ berat per item
+                'total_berat' => $totalBerat,
             ]);
         }
 
@@ -73,6 +78,7 @@ class KeranjangController
 
         $keranjang->jumlah = $jumlahBaru;
         $keranjang->totalharga = $keranjang->produk->harga * $jumlahBaru;
+        $keranjang->total_berat = ($keranjang->produk->berat ?? 0) * $jumlahBaru; 
         $keranjang->save();
 
         return redirect()->route('keranjang.index')->with('success', 'Jumlah berhasil diperbarui.');

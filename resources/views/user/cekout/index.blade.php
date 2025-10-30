@@ -62,6 +62,15 @@
     <div class="container pb-5">
         <h1 class="text-center mb-5">Checkout</h1>
 
+        {{-- Tambahkan di sini --}}
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
         <form id="checkout-form" action="{{ route('pesanan.store') }}" method="POST">
             @csrf
             <input type="hidden" name="ongkir" id="ongkir" value="0">
@@ -73,27 +82,29 @@
                         <h5 class="fw-bold mb-4">Detail Pembayaran</h5>
 
                         <div class="mb-3">
-                            <label for="nama_penerima" class="form-label">Nama Penerima</label>
+                            <label for="nama_penerima" class="form-label">Nama</label>
                             <input type="text" name="nama_penerima" id="nama_penerima" class="form-control"
-                                value="{{ old('nama_penerima') }}">
+                                value="{{ old('nama_penerima', Auth::user()->name) }}">
                             @error('nama_penerima')
                                 <div class="text-error">{{ $message }}</div>
                             @enderror
                         </div>
 
+
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat Pengiriman</label>
                             <input type="text" name="alamat" id="alamat" class="form-control"
-                                value="{{ old('alamat') }}">
+                                value="{{ old('alamat', Auth::user()->alamat) }}">
                             @error('alamat')
                                 <div class="text-error">{{ $message }}</div>
                             @enderror
                         </div>
 
+
                         <div class="mb-3">
                             <label for="telepon" class="form-label">Nomor Telepon</label>
                             <input type="text" name="telepon" id="telepon" class="form-control"
-                                value="{{ old('telepon') }}">
+                                value="{{ old('telepon', Auth::user()->no_telepon) }}">
                             @error('telepon')
                                 <div class="text-error">{{ $message }}</div>
                             @enderror
@@ -138,29 +149,27 @@
                         <!-- Kurir & Berat -->
                         <div class="mb-3">
                             <label class="form-label">Pilih Kurir</label>
-                            <div class="d-flex gap-3">
-                                @foreach (['jne' => 'JNE', 'jnt' => 'J&T'] as $key => $label)
-                                    <div class="form-check">
-                                        <input type="radio" name="courier" value="{{ $key }}"
-                                            class="form-check-input" {{ old('courier') == $key ? 'checked' : '' }}>
-                                        <label class="form-check-label">{{ $label }}</label>
-                                    </div>
+                            <select name="courier" id="courier" class="form-select" required>
+                                <option value="">-- Pilih Kurir --</option>
+                                @foreach ($couriers as $key => $label)
+                                    <option value="{{ $key }}" {{ old('courier') == $key ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
                                 @endforeach
-                            </div>
+                            </select>
                             @error('courier')
-                                <div class="text-error">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
 
 
                         <div class="mb-3">
-                            <label for="weight" class="form-label">Berat Produk (gram)</label>
+                            <label for="weight" class="form-label">Total Berat Produk (gram)</label>
                             <input type="number" name="weight" id="weight" class="form-control"
-                                value="{{ old('weight', 1000) }}">
-                            @error('weight')
-                                <div class="text-error">{{ $message }}</div>
-                            @enderror
+                                value="{{ $totalBerat ?? 0 }}" readonly>
                         </div>
+
 
                         <div class="d-flex justify-content-center mb-4 flex-col items-center">
                             <button type="button" id="btn-check-ongkir" class="btn btn-warning px-6 py-3">
@@ -278,7 +287,7 @@
                 let token = $("meta[name='csrf-token']").attr("content");
                 let origin_id = 4029; // id kecamatan asal (sesuaikan)
                 let destination_id = $('select[name=district_id]').val();
-                let courier = $('input[name=courier]:checked').val();
+                let courier = $('select[name=courier]').val();
                 let weight = $('#weight').val();
 
                 if (!destination_id || !courier || !weight) {
